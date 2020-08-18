@@ -8,7 +8,8 @@ body{
 
 
 nav {
-    position: fixed;
+    display: hidden;
+    position: sticky;
     top:0px;
     left:0px;
     right:0px;
@@ -67,3 +68,39 @@ h1{
     right: 52%;
     border-radius: 20px;
 }
+
+.container{
+    padding:10px;
+    border-radius: 5px;
+    background:white;
+    display:inline-block;
+    position: fixed;
+    right:0%;
+    z-index:3;
+}
+
+.bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px auto;
+    transition: 0.4s;
+    
+  }
+  
+  /* Rotate first bar */
+  .change .bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+  }
+  
+  /* Fade out the second bar */
+  .change .bar2 {
+    opacity: 0;
+  }
+  
+  /* Rotate last bar */
+  .change .bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+  }
