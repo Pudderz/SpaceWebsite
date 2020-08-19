@@ -1,7 +1,6 @@
 
 let navMorph = document.querySelector('.navBackground');
 let navButton = document.querySelector('.container');
-let div = document.querySelector('#nav');
 let menu = document.querySelector('#menu')
 let changeBegan, changeCompleted = 0;
 let changeNav = (x) =>{
@@ -27,15 +26,22 @@ let morphing = anime({
     changeBegin: function(){
         changeBegan++;
         console.log('animation began');
-        menu.classList.toggle('showing');
-
+        if(!(changeBegan%2)){
+            menu.classList.remove('showing');
+            console.log('removed')
+        }
+        
     },
-    changeComplete: function(anim) {
+
+    changeComplete: function() {
         changeCompleted++;
         console.log('completed')
-    
+          if(changeCompleted%2){
+            menu.classList.add('showing');
+            console.log('added');
+        }
     },
-    loopComplete: function(anim){
+    loopComplete: function(){
         morphing.reverse();
         console.log('loopComplete ran')
     }
@@ -44,7 +50,6 @@ let morphing = anime({
 navButton.addEventListener('click', ()=>{
     console.log('clicked')
     morphing.play();
-    div.classList.toggle('show');
 })
 
 

@@ -21,10 +21,10 @@ nav {
 }
 
 .showing{
-        display: flex;
-        transition:1s;
-        justify-content: center;
-        align-items: center;
+    display: block !important;
+    justify-content: center;
+    align-items: center;
+        
 }
 nav a{
     width: 100%;
