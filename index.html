@@ -95,16 +95,17 @@
         </div>
     </div>
    
-    <div class="main">
-        <h2>NASA Api</h2>
-        <label class="main">
-            <input type="button"> 
-            <img class="daily-image" src="http://via.placeholder.com/420x180" alt="placeholder image">
-            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">More Details</a>
-        </label>
+    <div class="NASAAPOD">
+        <h2>NASA Daily Pictures</h2>
         <div>
-            <h3>Recent Asteroids</h3>
-            <ul id="asteroid-list"></ul>
+            <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>
+            <img class="daily-image" src="http://via.placeholder.com/420x180" alt="placeholder image">
+            <p> Photo Details:</p>    
+            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">More Details</a>
+            <div class="nextDay">
+                <p>Yesterday's Astronomy Picture</p>
+                <div class="placeholderImageDiv"></div>
+            </div>
         </div>
 
         <div>

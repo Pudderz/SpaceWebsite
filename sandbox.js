@@ -11,7 +11,6 @@ let morphing = anime({
     targets: navMorph,
     d:[
         {value: "M795 525V472H729V495.67V525H760.807H795Z"},
-        //{value: "M1498.5 999V1H497.5L731 202L913 466L1031 779.5L1498.5 999Z"},
         {value: "M1498.5 999V1H0V423V999H744.5H1498.5Z"},
     ],
     easing: 'easeInOutQuad',
@@ -52,4 +51,16 @@ navButton.addEventListener('click', ()=>{
     morphing.play();
 })
 
-
+let nasaPhotoDate = (() =>{
+    let date = new Date();
+    console.log(date);
+    let day = date.getDate();
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let photoDate = document.querySelector('#nasaPhotoDate');
+    console.log(photoDate.innerHTML)
+    console.log(photoDate.textContent)
+    photoDate.textContent = `Nasa's Picture of ${day}/${month+1}/${year}`;
+    console.log(photoDate.innerHtML);
+    console.log(photoDate.textContent);
+})();
