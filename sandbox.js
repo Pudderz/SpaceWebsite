@@ -2,6 +2,7 @@
 let navMorph = document.querySelector('.navBackground');
 let navButton = document.querySelector('.container');
 let div = document.querySelector('#nav');
+let menu = document.querySelector('#menu')
 let changeBegan, changeCompleted = 0;
 let changeNav = (x) =>{
     x.classList.toggle('change');
@@ -25,7 +26,8 @@ let morphing = anime({
     },
     changeBegin: function(){
         changeBegan++;
-        console.log('animation began')
+        console.log('animation began');
+        menu.classList.toggle('showing');
 
     },
     changeComplete: function(anim) {

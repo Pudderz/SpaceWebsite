@@ -6,16 +6,29 @@ body{
 }
 
 
-
 nav {
-    position: sticky;
-    top:0px;
-    left:0px;
-    right:0px;
+    position: absolute;
+    top:50%;
+    left:40%;
+    width:25%;
     padding: 10px;
-    background-color: #49377e;
-    color: white;
-    z-index:1;
+    color: black;
+    font-family: 'Roboto';
+    font-size: 2em;
+    z-index:4;
+    display: none;
+    
+}
+
+.showing{
+        display: flex;
+        transition:1s;
+        justify-content: center;
+        align-items: center;
+}
+nav a{
+    width: 100%;
+    padding: 40px;
 }
 
 .background{
@@ -111,7 +124,4 @@ h1{
     z-index:2;
     padding: 0px;
     margin: 0px;
-}
-.show{
-    display:block !important;
 }
