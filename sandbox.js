@@ -14,8 +14,9 @@ let morphing = anime({
         //{value: "M1498.5 999V1H497.5L731 202L913 466L1031 779.5L1498.5 999Z"},
         {value: "M1498.5 999V1H0V423V999H744.5H1498.5Z"},
     ],
-    easing: 'easeInOutQuint',
-    duration: 1000,
+    easing: 'easeInOutQuad',
+    duration: 500,
+    rotate: anime.stagger([-360, 360]),
     autoplay: false,
     loop: 1, 
 
