@@ -65,3 +65,20 @@ let nasaPhotoDate = (() =>{
     console.log(photoDate.innerHtML);
     console.log(photoDate.textContent);
 })();
+
+let fetchRequest = async (date, hdBool)=>{
+    let photo = document.querySelector('#image');
+    let details = document.querySelector('#details');
+    let url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=2020-08-20&hd=false`;
+    let response = await fetch(url, {
+    });
+    let parsed = await response.json();
+    console.log(parsed);
+    details.textContent = parsed.explanation;
+    photo.setAttribute('src', parsed.url);
+    photo.setAttribute('alt', `image of ${parsed.title}`);    
+}
+
+
+fetchRequest('test', true);
+

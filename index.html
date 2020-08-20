@@ -25,6 +25,7 @@
             <a href="">Home</a>
             <a href="">Daily Asteroids</a>
             <a href="">Nasa Photos</a>
+            <a href="">Saved Images</a>
         </nav>
     </div>
     
@@ -102,12 +103,19 @@
         
             <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>
             <div class="daily-image">
-                <img  src="" alt="placeholder image">
+                <img  id ="image" src="" alt="placeholder image">
             </div>
+            <div id="title">
+                <p>test this is a test</p>
+                <label for="moreOptions"><input id="moreOptions" type="button"> click to find out more details
+                </label>
+            </div>>
             <section id="photoDetails">
                 <h3>Photo Details:</h3>
                 <p id ="details"></p>    
-                <a id ="apodLink" href="https://apod.nasa.gov/apod/astropix.html" target="_blank">More Details</a>
+                <div id ="apodLink">
+                    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer'>More Details</a>
+                </div> 
             </section>
             <div class="nextDay">
                 <p>Yesterday's Astronomy Picture</p>
