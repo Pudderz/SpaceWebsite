@@ -2,6 +2,7 @@
 let navMorph = document.querySelector('.navBackground');
 let navButton = document.querySelector('.container');
 let menu = document.querySelector('#menu')
+let apiKey = "2A1UmguNwvSeRTvmHlZ5rXbsFErb3EH8Nu3YPJI2"
 let changeBegan, changeCompleted = 0;
 let changeNav = (x) =>{
     x.classList.toggle('change');

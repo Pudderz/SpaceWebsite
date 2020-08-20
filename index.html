@@ -4,7 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asteroid App</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dailyPhotoStyles.css">
 </head>
 <body>
   
@@ -18,13 +20,13 @@
             <path class="navBackground" d="M1500 34V0H1465V15.1845V34H1481.87H1500Z" fill="#FFF">
         </svg>
 <!--d="M1.5 5C3.22227 -1 -4.50063 -1.72067 14.4997 -1.72067L25.5004 -1.72067V15.5C25.5004 15.5 21.5003 16.1364 18.5003 12.5C15.5003 8.86364 7.24944 12.0618 6.00004 10.5C4.00003 8.00002 -0.222276 11 1.5 5Z" fill="#FFF">-->
-     <nav id="menu">
-        <img src="" alt="Logo">
-        <a href="">Home</a>
-        <a href="">Daily Asteroids</a>
-        <a href="">Nasa Photos</a>
-    </nav>
-</div>
+        <nav id="menu">
+            <img src="" alt="Logo">
+            <a href="">Home</a>
+            <a href="">Daily Asteroids</a>
+            <a href="">Nasa Photos</a>
+        </nav>
+    </div>
     
     <div class="background">
         <div class="Space">
@@ -97,18 +99,21 @@
    
     <div class="NASAAPOD">
         <h2>NASA Daily Pictures</h2>
-        <div>
+        
             <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>
-            <img class="daily-image" src="http://via.placeholder.com/420x180" alt="placeholder image">
-            <p> Photo Details:</p>    
-            <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank">More Details</a>
+            <div class="daily-image">
+                <img  src="" alt="placeholder image">
+            </div>>
+            
+            <p id="photoDetails"> Photo Details:</p>    
+            <a id ="apodLink" href="https://apod.nasa.gov/apod/astropix.html" target="_blank">More Details</a>
             <div class="nextDay">
                 <p>Yesterday's Astronomy Picture</p>
                 <div class="placeholderImageDiv"></div>
             </div>
-        </div>
+        
 
-        <div>
+    <div>
             <h3>Differences</h3>
         </div>
         <div>
@@ -116,13 +121,13 @@
         </div>
     </div>
     
-    <footer>
+    <!-- <footer>
         <p>Created by Matthew Pudney</p>
         <a href="mailto:mpudney6@gmail.com">mpudney6@gmail.com</a>
         <a href="https://github.com/Pudderz/" target="_blank">
             <img src="" alt="Github profile Link">
         </a>
-    </footer>    
+    </footer>     -->
     <script src="node_modules/animejs/lib/anime.min.js"></script>
     <script src="sandbox.js" type="text/javascript"></script>
 </body>

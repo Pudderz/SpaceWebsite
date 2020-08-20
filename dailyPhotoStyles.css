@@ -1,0 +1,41 @@
+.NASAAPod{
+    display: grid;
+    grid-template-columns: 40px 50% auto 40px ;
+    grid-template-rows:40px 50% 20px auto 40px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.daily-image{
+    
+        grid-column-start: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        background-color:black;
+}
+
+.NASAAPod h2{
+    grid-column-start: 2;
+    grid-row-start: 1;
+    
+    
+}
+
+#nasaPhotoDate{
+    grid-column-start: 3;
+    grid-row-start:1;
+}
+#photoDetails{
+    grid-column-start: 3;
+    grid-row-start:2;
+}
+
+#apodLink{
+    grid-column-start:3;
+    grid-row-start: 3;
+}
+
+.nextDay{
+    grid-column-start: 2;
+
+}
