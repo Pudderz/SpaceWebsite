@@ -1,23 +1,22 @@
 .NASAAPod{
     display: grid;
     grid-template-columns: 40px 50% auto 40px ;
-    grid-template-rows:40px 50% 20px auto 40px;
+    grid-template-rows:10% 50% 20px auto 10%;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
+    gap: 15px 10px
 }
 
 .daily-image{
-    
-        grid-column-start: 2;
-        grid-row-start: 2;
-        grid-row-end: 3;
-        background-color:black;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    background-color:white;
+    box-shadow: 0px 0px 10px 2px rgb(145, 145, 145);
 }
 
 .NASAAPod h2{
     grid-column-start: 2;
     grid-row-start: 1;
-    
     
 }
 
@@ -28,14 +27,46 @@
 #photoDetails{
     grid-column-start: 3;
     grid-row-start:2;
+    grid-row-end: 6;
+    box-shadow: 0px 0px 10px 2px rgb(145, 145, 145);
+    display:grid;
+    grid-template-columns: 1% auto;
+    grid-template-rows: 10% auto 10%;
 }
 
+#details{
+    grid-column-start:2;
+    grid-row-start:2;
+    overflow:scroll;
+}
+#photoDetails h3{
+    grid-column-start:2;
+    grid-row-start:1;
+}
 #apodLink{
-    grid-column-start:3;
+    grid-column-start:2;
     grid-row-start: 3;
 }
 
 .nextDay{
     grid-column-start: 2;
-
+    grid-row-start:4;
+    grid-row-end:6;
+    background-color: white;
+    align-self: centre;
+    display: grid;
+    grid-template-columns: auto ;
+    grid-template-rows:20% auto 40%;
+    box-shadow: 0px 0px 10px 2px rgb(145, 145, 145);
+    border-radius: 5px ;
 }
+
+.placeholderImageDiv{
+   background-color: grey;
+   grid-row-start: 3;
+   position: relative;
+   align-self: center center;
+}
+ /* .placeholderImageDiv :hover{
+    transform: translate(200px)
+} */
