@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dailyPhotoStyles.css">
+    <link rel="stylesheet" href="">
 </head>
 <body>
   
@@ -100,7 +100,13 @@
    
     <div class="NASAAPOD">
         <h2>NASA Daily Pictures</h2>
+        <form>
+        <label for="inputDate">
+            <input id="inputDate" type="date" required>
+            <input id="" type="submit">
+        </label>
         
+        </form>
             <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>
             <div class="daily-image">
                 <img  id ="image" src="" alt="placeholder image">
@@ -109,7 +115,7 @@
                 <p>test this is a test</p>
                 <label for="moreOptions"><input id="moreOptions" type="button"> click to find out more details
                 </label>
-            </div>>
+            </div>
             <section id="photoDetails">
                 <h3>Photo Details:</h3>
                 <p id ="details"></p>    

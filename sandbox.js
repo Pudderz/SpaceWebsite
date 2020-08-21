@@ -4,6 +4,7 @@ let navButton = document.querySelector('.container');
 let menu = document.querySelector('#menu')
 let apiKey = "2A1UmguNwvSeRTvmHlZ5rXbsFErb3EH8Nu3YPJI2"
 let changeBegan, changeCompleted = 0;
+let nav = document.querySelector('#nav');
 let changeNav = (x) =>{
     x.classList.toggle('change');
     
@@ -29,6 +30,9 @@ let morphing = anime({
         if(!(changeBegan%2)){
             menu.classList.remove('showing');
             console.log('removed')
+        }else{
+            nav.style.display = 'inline';
+            console('inline');
         }
         
     },
@@ -39,6 +43,9 @@ let morphing = anime({
           if(changeCompleted%2){
             menu.classList.add('showing');
             console.log('added');
+        } else{
+            nav.style.display = 'none';
+            console.log('none');
         }
     },
     loopComplete: function(){
@@ -57,19 +64,24 @@ let nasaPhotoDate = (() =>{
     console.log(date);
     let day = date.getDate();
     let year = date.getFullYear();
-    let month = date.getMonth();
+    let month = date.getMonth()+1;
     let photoDate = document.querySelector('#nasaPhotoDate');
     console.log(photoDate.innerHTML)
     console.log(photoDate.textContent)
-    photoDate.textContent = `Nasa's Picture of ${day}/${month+1}/${year}`;
+    photoDate.textContent = `Nasa's Picture of ${day}/${month}/${year}`;
     console.log(photoDate.innerHtML);
     console.log(photoDate.textContent);
+    if(month.length==1){
+        month = `0${month}`;
+    }
+    
+    return `${year}-${month}-${day}`
 })();
 
 let fetchRequest = async (date, hdBool)=>{
     let photo = document.querySelector('#image');
     let details = document.querySelector('#details');
-    let url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=2020-08-20&hd=false`;
+    let url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}&hd=${hdBool}`;
     let response = await fetch(url, {
     });
     let parsed = await response.json();
@@ -80,5 +92,11 @@ let fetchRequest = async (date, hdBool)=>{
 }
 
 
-fetchRequest('test', true);
+fetchRequest(nasaPhotoDate, true);
 
+let timeForm = document.querySelector('form');
+timeForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    console.log(e.target[0].value);
+    fetchRequest(e.target[0].value, false)
+})
