@@ -5,6 +5,12 @@ let menu = document.querySelector('#menu')
 let apiKey = "2A1UmguNwvSeRTvmHlZ5rXbsFErb3EH8Nu3YPJI2"
 let changeBegan, changeCompleted = 0;
 let nav = document.querySelector('#nav');
+let title = document.querySelector('#header');
+let timeForm = document.querySelector('form');
+let imageTitle ='';
+let imageDetails = '';
+let imageUrl='';
+
 let changeNav = (x) =>{
     x.classList.toggle('change');
     
@@ -88,15 +94,20 @@ let fetchRequest = async (date, hdBool)=>{
     console.log(parsed);
     details.textContent = parsed.explanation;
     photo.setAttribute('src', parsed.url);
-    photo.setAttribute('alt', `image of ${parsed.title}`);    
+    photo.setAttribute('alt', `image of ${parsed.title}`);  
+    imageTitle = parsed.title;
+    imageUrl = parsed.url;
+    imageDetails = parsed.explanation;
+    title.textContent = imageTitle;  
 }
 
 
 fetchRequest(nasaPhotoDate, true);
 
-let timeForm = document.querySelector('form');
-timeForm.addEventListener('submit', (e)=>{
+timeForm.addEventListener('submit', e =>{
     e.preventDefault();
     console.log(e.target[0].value);
     fetchRequest(e.target[0].value, false)
-})
+});
+
+
