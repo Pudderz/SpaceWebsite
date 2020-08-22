@@ -15,20 +15,9 @@ let createImages = (photoCollection) =>{
             let image = document.createElement('img');
             image.src = element.url;
             image.alt = element.title;
-            switch(index%4){
-                case 0:
-                    column1.appendChild(image);
-                    break;
-                case 1:
-                    column2.appendChild(image);
-                    break;
-                case 2:
-                    column3.appendChild(image);
-                break;
-                case 3:
-                    column4.appendChild(image);
-                break;
-            }
+            let li = document.createElement('li');
+            li.appendChild(image);
+            collection.appendChild(li)
         });
     }   
 } 
