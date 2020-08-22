@@ -16,10 +16,8 @@ openRequest.onsuccess = () => {
     let db = openRequest.result;
     console.log('db successful');
     console.log('db su:'+ db);
-};
 
-// store the details in a personal collection, only will works for images atm
-let store = objectStore => {
+    let store = objectStore => {
     let transaction = db.transaction(`${objectStore}`,'readwrite');
     let items = transaction.objectStore(`${objectStore}`);
     let item = {
@@ -35,7 +33,17 @@ let store = objectStore => {
     request.onerror = () => {
         console.log('item could not be added to the store', request.error)
     }
-}
+    }
+    let saved = document.querySelector('#saveImage');
+    saved.addEventListener('click', ()=>{
+    store('imageSaved', ) 
+    })
+
+
+};
+
+// store the details in a personal collection, only will works for images atm
+
 
 // let saveImage = () => {
 //     let canvas = document.createElement('canvas');
@@ -48,9 +56,4 @@ let store = objectStore => {
 //     })    
 // }
 
-
-let saved = document.querySelector('#saveImage');
-saved.addEventListener('click', ()=>{
-  store('imageSaved', ) 
-})
 
