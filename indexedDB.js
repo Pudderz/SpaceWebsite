@@ -16,7 +16,7 @@ openRequest.onerror = () => {
 openRequest.onsuccess = () => {
     db = openRequest.result;
     console.log('db successful');
-
+    console.log('db su:'+ db);
 };
 
 // store the details in a personal collection, only will works for images atm
