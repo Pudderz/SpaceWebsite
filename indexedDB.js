@@ -1,11 +1,10 @@
 let image = document.querySelector('#image');
-let db;
 
 
 
 let openRequest = indexedDB.open('storage', 1);
 openRequest.onupgradeneeded = (e)=> {
-    db = openRequest.result;
+    let db = openRequest.result;
     db.createObjectStore('imageSaved');
     db.createObjectStore('asteroidsSaved');
 }
@@ -14,7 +13,7 @@ openRequest.onerror = () => {
 };
 
 openRequest.onsuccess = () => {
-    db = openRequest.result;
+    let db = openRequest.result;
     console.log('db successful');
     console.log('db su:'+ db);
 };
@@ -54,3 +53,4 @@ let saved = document.querySelector('#saveImage');
 saved.addEventListener('click', ()=>{
   store('imageSaved', ) 
 })
+
