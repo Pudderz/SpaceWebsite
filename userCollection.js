@@ -1,11 +1,13 @@
 let collection = document.querySelector('.collection');
 let loadButton = document.querySelector('#load-images');
-//use these column to get a layout which changes per column for the images
-let column1 = document.querySelector('#column-1');
-let column2 = document.querySelector('#column-2')
-let column3 = document.querySelector('#column-3')
-let column4 = document.querySelector('#column-4')
-console.log(collection);
+let db;
+let allImage = document.querySelector('ul'); 
+let modal = document.querySelector('#modalDiv');
+let modalImg = document.querySelector('#modalImg');
+let details = document.querySelector('#information');
+let title = document.getElementById('imageTitle');
+let date = document.getElementById('imageDate');
+let close = document.querySelector('.close');
 
 let createImages = (photoCollection) =>{
     if(photoCollection.length == 0){
@@ -23,9 +25,6 @@ let createImages = (photoCollection) =>{
 } 
 
 
-
-
-
 let openRequest = indexedDB.open('storage', 1);
 openRequest.onupgradeneeded = () => {
     let db = openRequest.result;
@@ -37,7 +36,7 @@ openRequest.onerror = () => {
 };
 
 openRequest.onsuccess = () => {
-    let db = openRequest.result;
+    db = openRequest.result;
     console.log('db successful');
     console.log('db:'+ db);
 
@@ -65,4 +64,33 @@ openRequest.onsuccess = () => {
 };
 
 
-   
+
+
+let imageClick = allImage.addEventListener('click', e => {
+    if(e.target.localName == "img"){
+        modal.style.display = "block";
+        console.log(e);
+        let transaction = db.transaction('imageSaved', 'readonly');
+        let objectStore = transaction.objectStore('imageSaved');
+        let request = objectStore.get(e.target.alt);
+        request.onsuccess = () => {
+            console.log('item viewed', request.result);
+            let photoDetails = request.result;
+            console.log(photoDetails)
+            modalImg.src = photoDetails.url;
+            modalImg.alt = photoDetails.title;
+            date.textContent = photoDetails.date;
+            title.textContent = photoDetails.title;
+            details.textContent = request.result.explanation;
+        }
+        request.onerror = () =>{
+            console.log('item could not be viewed', request.error);
+        }
+    }
+});
+
+close.addEventListener('click',() =>{
+    modal.style.display = 'none';
+    
+}
+   )
