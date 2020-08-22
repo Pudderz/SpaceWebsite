@@ -6,7 +6,7 @@ let db;
 let openRequest = indexedDB.open('storage', 1);
 openRequest.onupgradeneeded = (e)=> {
     db = openRequest.result;
-    db.createObjectStore('imageSaved', {autoIncrement: true});
+    db.createObjectStore('imageSaved');
     db.createObjectStore('asteroidsSaved');
 }
 openRequest.onerror = () => {
@@ -24,15 +24,17 @@ let store = objectStore => {
     let transaction = db.transaction(`${objectStore}`,'readwrite');
     let items = transaction.objectStore(`${objectStore}`);
     let item = {
-        id: 1,
         title: imageTitle,
         explanation: imageDetails,
-        blob: imageUrl,
+        url: imageUrl,
     }
-    let request = items.add(item);
+    let request = items.add(item, imageTitle);
 
     request.onsuccess = () => {
         console.log('item added to the store', request.result)
+    }
+    request.onerror = () => {
+        console.log('item could not be added to the store', request.error)
     }
 }
 
