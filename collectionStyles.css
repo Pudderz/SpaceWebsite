@@ -8,6 +8,7 @@ ul {
   li {
     height: 40vh;
     flex-grow: 1;
+    display: flex;
   }
   
   img {
@@ -16,6 +17,7 @@ ul {
     object-fit: cover;
     vertical-align: middle;
     cursor: pointer;
+
   }
 
   ul img:hover{
@@ -50,6 +52,7 @@ ul {
       margin: auto;
       max-height: 70%;
       object-fit: contain;
+      max-width: 100%;
   }
   @media only screen and (max-width: 700px){
     .modal {

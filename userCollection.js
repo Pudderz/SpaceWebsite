@@ -10,6 +10,7 @@ let date = document.getElementById('imageDate');
 let close = document.querySelector('.close');
 let search = document.querySelector('#search-bar');
 
+
 let createImages = (photoCollection) =>{
     if(photoCollection.length == 0){
         collection.innerHTML = '<p>You have no images in your collection</p>';
@@ -18,6 +19,7 @@ let createImages = (photoCollection) =>{
             let image = document.createElement('img');
             image.src = element.url;
             image.alt = element.title;
+            image.classList.add('searchResult')
             let li = document.createElement('li');
             li.appendChild(image);
             collection.appendChild(li)
@@ -25,6 +27,19 @@ let createImages = (photoCollection) =>{
     }   
 } 
 
+let searchImage = () =>{
+    let imageList = document.querySelectorAll('.searchResult');
+        search.addEventListener('keyup', (element) =>{
+            imageList.forEach(image => {
+                if(!(image.alt.toLowerCase().includes(element.target.value.toLowerCase()))){
+                    image.parentElement.style.display="none"
+                }else{
+                    image.parentElement.style.display="flex";
+                }
+            })
+        });
+
+}
 
 let openRequest = indexedDB.open('storage', 1);
 openRequest.onupgradeneeded = () => {
@@ -51,7 +66,8 @@ openRequest.onsuccess = () => {
     request.onsuccess = () => {
         console.log('items viewed', request.result);
         let photoCollection = request.result;
-        createImages(photoCollection)
+        createImages(photoCollection);
+        searchImage();
     }
     request.onerror = () =>{
         console.log('items could not be viewed', request.error);
@@ -92,7 +108,3 @@ close.addEventListener('click',() =>{
     
 });
 
-search.addEventListener('keyup', (e) =>{
-    console.log(e.target.value);
-    
-});
