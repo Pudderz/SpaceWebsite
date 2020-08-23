@@ -1,5 +1,5 @@
 let collection = document.querySelector('.collection');
-let loadButton = document.querySelector('#load-images');
+
 let db;
 let allImage = document.querySelector('ul'); 
 let modal = document.querySelector('#modalDiv');
@@ -8,12 +8,13 @@ let details = document.querySelector('#information');
 let title = document.getElementById('imageTitle');
 let date = document.getElementById('imageDate');
 let close = document.querySelector('.close');
+let search = document.querySelector('#search-bar');
 
 let createImages = (photoCollection) =>{
     if(photoCollection.length == 0){
-        collection.innerHTML = 'You have no images in your collection';
+        collection.innerHTML = '<p>You have no images in your collection</p>';
     } else{
-        photoCollection.forEach((element, index) => {
+        photoCollection.forEach(element => {
             let image = document.createElement('img');
             image.src = element.url;
             image.alt = element.title;
@@ -31,6 +32,7 @@ openRequest.onupgradeneeded = () => {
     db.createObjectStore('imageSaved');
     db.createObjectStore('asteroidsSaved');
 }
+
 openRequest.onerror = () => {
     console.log(openRequest.error);
 };
@@ -40,7 +42,8 @@ openRequest.onsuccess = () => {
     console.log('db successful');
     console.log('db:'+ db);
 
-    let grabImage = () =>{
+    let grabImage = (() =>{
+        console.log('ad')
     console.log('db:'+ db)
     let transaction = db.transaction('imageSaved', 'readonly');
     let objectStore = transaction.objectStore('imageSaved');
@@ -53,14 +56,9 @@ openRequest.onsuccess = () => {
     request.onerror = () =>{
         console.log('items could not be viewed', request.error);
         }
-    }
+    })();
 
-     loadButton.addEventListener('click', ()=>{
-        console.log('clicked');
-       grabImage();  
-       
-       });
-
+     
 };
 
 
@@ -92,5 +90,9 @@ let imageClick = allImage.addEventListener('click', e => {
 close.addEventListener('click',() =>{
     modal.style.display = 'none';
     
-}
-   )
+});
+
+search.addEventListener('keyup', (e) =>{
+    console.log(e.target.value);
+    
+});
