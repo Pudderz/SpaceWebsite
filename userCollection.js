@@ -27,7 +27,7 @@ let createImages = (photoCollection) =>{
     }   
 } 
 
-let searchImage = () =>{
+let searchImages = () =>{
     let imageList = document.querySelectorAll('.searchResult');
         search.addEventListener('keyup', (element) =>{
             imageList.forEach(image => {
@@ -67,7 +67,7 @@ openRequest.onsuccess = () => {
         console.log('items viewed', request.result);
         let photoCollection = request.result;
         createImages(photoCollection);
-        searchImage();
+        searchImages();
     }
     request.onerror = () =>{
         console.log('items could not be viewed', request.error);
@@ -76,7 +76,6 @@ openRequest.onsuccess = () => {
 
      
 };
-
 
 
 

@@ -1,10 +1,10 @@
 let image = document.querySelector('#image');
-
-
+let deleteImage = document.querySelector('#deleteImage');
+let db;
 
 let openRequest = indexedDB.open('storage', 1);
 openRequest.onupgradeneeded = (e)=> {
-    let db = openRequest.result;
+    db = openRequest.result;
     db.createObjectStore('imageSaved');
     db.createObjectStore('asteroidsSaved');
 }
@@ -13,10 +13,10 @@ openRequest.onerror = () => {
 };
 
 openRequest.onsuccess = () => {
-    let db = openRequest.result;
+    db = openRequest.result;
     console.log('db successful');
     console.log('db su:'+ db);
-
+    removeImage();
     let store = objectStore => {
     let transaction = db.transaction(`${objectStore}`,'readwrite');
     let items = transaction.objectStore(`${objectStore}`);
@@ -36,12 +36,22 @@ openRequest.onsuccess = () => {
     }
     let saved = document.querySelector('#saveImage');
     saved.addEventListener('click', ()=>{
-    store('imageSaved', ) 
+    store('imageSaved') 
     })
 
 
 };
+let removeImage = () => {
+    deleteImage.addEventListener('click', (e) => {
+        let transaction = db.transaction('imageSaved', 'readwrite');
+        let items = transaction.objectStore('imageSaved');
+        console.log(image.alt)
+        let request = items.delete(image.alt);
+        request.onsuccess = () => console.log('item removed from the store');
+        request.onerror = () => console.log('item could not be removed from the store', request.error);
+    })
 
+}
 // store the details in a personal collection, only will works for images atm
 
 

@@ -94,7 +94,7 @@ let fetchRequest = async (date, hdBool)=>{
     console.log(parsed);
     details.textContent = parsed.explanation;
     photo.setAttribute('src', parsed.url);
-    photo.setAttribute('alt', `image of ${parsed.title}`);  
+    photo.setAttribute('alt', `${parsed.title}`);  
     imageTitle = parsed.title;
     imageUrl = parsed.url;
     imageDetails = parsed.explanation;
