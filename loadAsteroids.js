@@ -3,14 +3,25 @@ let info;
 let ul = document.querySelector('ul');
 let displayAsteroids = (data) =>{
     console.log(data);
+    
     for(date in data){
         let array = data[date];
         array.forEach(e=>{
+            let detailInput = document.createElement('input');
+            detailInput.type ="button";
+            detailInput.classList.add ="details";
+            detailInput.value = "more details";
+            let save = document.createElement('input');
+            save.type ="button";
+            save.value = "save to collection";
             let content = document.createElement('li');
-            content.textContent = `name: ${e.name} id: ${e.id} size:${e.absolute_magnitude_h}`
+            content.innerHTML = `name: ${e.name} id: ${e.id} size:${e.absolute_magnitude_h} 
+            ${e.close_approach_data[0].close_approach_date_full}`;
+            detailInput.id = e.id;
             console.log(content);
             ul.appendChild(content);
-
+            ul.appendChild(detailInput);
+            ul.appendChild(save);
         })
     }
     
