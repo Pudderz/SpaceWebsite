@@ -1,6 +1,6 @@
 let api = "2A1UmguNwvSeRTvmHlZ5rXbsFErb3EH8Nu3YPJI2";
 let info;
-let div = document.querySelector('div');
+let ul = document.querySelector('ul');
 let displayAsteroids = (data) =>{
     console.log(data);
     for(date in data){
@@ -9,7 +9,7 @@ let displayAsteroids = (data) =>{
             let content = document.createElement('p');
             content.textContent = `name: ${e.name} id: ${e.id} size:${e.absolute_magnitude_h}`
             console.log(content);
-            div.appendChild(content);
+            ul.appendChild(content);
 
         })
     }
