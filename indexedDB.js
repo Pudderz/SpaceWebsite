@@ -1,5 +1,6 @@
 let image = document.querySelector('#image');
 let deleteImage = document.querySelector('#deleteImage');
+let changeImageQuality =document.querySelector('#changeQuality');
 let db;
 
 let openRequest = indexedDB.open('storage', 1);
@@ -52,6 +53,11 @@ let removeImage = () => {
     })
 
 }
+
+changeImageQuality.addEventListener('click', () =>{
+    [image.src, imageHdUrl] = [imageHdUrl, image.src];
+    changeImageQuality.textContent = "change Back"
+})
 // store the details in a personal collection, only will works for images atm
 
 

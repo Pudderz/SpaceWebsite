@@ -98,6 +98,7 @@ let fetchRequest = async (date, hdBool)=>{
     imageTitle = parsed.title;
     imageUrl = parsed.url;
     imageDetails = parsed.explanation;
+    imageHdUrl = parsed.hdurl;
     title.textContent = imageTitle;  
 }
 
