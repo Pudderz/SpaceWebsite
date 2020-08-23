@@ -1,0 +1,48 @@
+.daily-image{
+    max-width:100%;
+    max-height: 70%;
+    display: block;
+    overflow: hidden;
+    padding:8px;
+    position: relative;
+    
+}
+
+#image{
+    margin: auto;
+    max-height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+}
+
+#group, #photoDetails, .title{
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    margin:8px;
+    padding: 8px;
+}
+
+#header{
+    text-align: center;
+    padding: 8px;
+    font-size: 1em;
+  
+}
+
+form{
+    border-style: solid;
+    box-shadow: rgba(0, 0, 0, 0.9);
+    margin: 0%;
+    padding: 2px;
+}
+#galleryLink{
+    background-color: inherit;
+}
+#choice{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+#photoDetails{
+    display:none;
+}

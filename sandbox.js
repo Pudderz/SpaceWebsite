@@ -10,7 +10,8 @@ let timeForm = document.querySelector('form');
 let imageTitle ='';
 let imageDetails = '';
 let imageUrl='';
-
+let photoDetails = document.getElementById('photoDetails');
+let displayDetails = document.getElementById('displayDetails')
 let changeNav = (x) =>{
     x.classList.toggle('change');
     
@@ -112,3 +113,19 @@ timeForm.addEventListener('submit', e =>{
 });
 
 
+displayDetails.addEventListener('click', e =>{
+    e.target.classList.toggle('show');
+    if(e.target.className.includes('show')){
+        photoDetails.style.display='block';
+        e.target.value = 'Hide details';
+        height = document.documentElement.scrollHeight
+        window.scroll({
+            top: height,
+            left:0,
+            behavior: 'smooth',
+        })
+    } else{
+        photoDetails.style.display='none';
+        e.target.value = 'Photo details';
+    }
+})

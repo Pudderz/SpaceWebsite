@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dailyPhotoStyles.css">
+    <link rel="stylesheet" href="indexStyles.css">
 </head>
 <body>
   
@@ -99,40 +99,40 @@
     </div>
    
     <div class="NASAAPOD">
-        <h2>NASA Daily Pictures</h2>
+        <div class ="title">
+         <h2>NASA Daily Pictures</h2>
         
-            <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>
+        <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>   
+        </div>
+         
+        <div class="daily-image">
+            <img  id ="image" src="" alt="placeholder image">
+        </div>
+        <div id="group">
             <h4 id="header"></h4>
-            <div class="daily-image">
-                <img  id ="image" src="" alt="placeholder image">
+            
+            <form>
+                <label for="inputDate">
+                    <p>Search a new date: </p>
+                    <input id="inputDate" type="date" required>
+                    <input id="" type="submit">
+                </label>
+            </form>
+            <div id="choice">
+                <button id="changeQuality">HD version</button>
+                <button><a id="galleryLink" href="savedImages.html">My Collection</a></button>
+                <button id="saveImage"> Save to Gallery</button>
+                <button id="DeleteImage">Remove from my Gallery</button>
+                <button id="displayDetails">Photo Details</button>
             </div>
-            <div id="title">
-                <p>test this is a test</p>
-                <a href="savedImages.html">My Collection</a>
-                <button id="saveImage"> Save to collection</button>
-                <button id="DeleteImage">Remove from my Collection<button>
-                <button id="changeQuality">Change to hd version</button>
-                <form>
-        <label for="inputDate">
-            <input id="inputDate" type="date" required>
-            <input id="" type="submit">
-        </label>
-        
-        </form>
-            </div>
-            <section id="photoDetails">
-                <h3>Photo Details:</h3>
-                <p id ="details"></p>    
-                <div id ="apodLink">
-                    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer'>More Details</a>
-                </div> 
-            </section>
-            <div class="nextDay">
-                <p>Yesterday's Astronomy Picture</p>
-                <div class="placeholderImageDiv"></div>
-            </div>
-        
-
+        </div>
+        <section id="photoDetails">
+            <h3>Photo Details:</h3>
+            <p id ="details"></p>    
+            <div id ="apodLink">
+                <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer'>More Details</a>
+            </div> 
+        </section>
     </div>
     <!-- <div>
             <h3>Differences</h3>
