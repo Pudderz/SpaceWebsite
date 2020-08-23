@@ -6,7 +6,7 @@ let displayAsteroids = (data) =>{
     for(date in data){
         let array = data[date];
         array.forEach(e=>{
-            let content = document.createElement('p');
+            let content = document.createElement('li');
             content.textContent = `name: ${e.name} id: ${e.id} size:${e.absolute_magnitude_h}`
             console.log(content);
             ul.appendChild(content);

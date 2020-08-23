@@ -36,10 +36,10 @@ let morphing = anime({
         if(!(changeBegan%2)){
             menu.classList.remove('showing');
             console.log('removed')
-        }else{
-            nav.style.display = 'inline';
-            console('inline');
         }
+        nav.style.display = 'inline';
+        console.log('inline');
+        
         
     },
 
