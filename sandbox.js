@@ -70,23 +70,19 @@ navButton.addEventListener('click', ()=>{
     morphing.play();
 })
 
+//Get current day to set date.max and start fetching current date image
 let nasaPhotoDate = (() =>{
     let date = new Date();
-    console.log(date);
     let day = date.getDate();
     let year = date.getFullYear();
-    let month = date.getMonth()+1;
+    let month = `${date.getMonth()+1}`;
     let photoDate = document.querySelector('#nasaPhotoDate');
-    console.log(photoDate.innerHTML)
-    console.log(photoDate.textContent)
     photoDate.textContent = `Nasa's Picture of ${day}/${month}/${year}`;
-    console.log(photoDate.innerHtML);
-    console.log(photoDate.textContent);
-    if(month.length==1){
-        month = `0${month}`;
-    }
-    
-    return `${year}-${month}-${day}`
+    console.log()
+    if(month.length==1)month = `0${month}`;
+    let inputDate = document.getElementById('inputDate');
+    inputDate.max= `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`;
 })();
 
 let fetchRequest = async (date, hdBool)=>{
@@ -166,7 +162,6 @@ displayDetails.addEventListener('click', e =>{
         window.scroll({
             top: 0,
             left:0,
-            behavior: 'smooth',
         })
         photoDetails.style.display='none';
         e.target.textContent = 'Photo details';

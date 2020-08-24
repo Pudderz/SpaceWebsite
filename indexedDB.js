@@ -15,8 +15,6 @@ openRequest.onerror = () => {
 
 openRequest.onsuccess = () => {
     db = openRequest.result;
-    console.log('db successful');
-    console.log('db su:'+ db);
     removeImage();
     let store = objectStore => {
         console.log(image.alt);
@@ -51,7 +49,6 @@ let removeImage = () => {
     deleteImage.addEventListener('click', (e) => {
         let transaction = db.transaction('imageSaved', 'readwrite');
         let items = transaction.objectStore('imageSaved');
-        console.log(image.alt)
         let request = items.delete(image.alt);
         request.onsuccess = () => console.log('item removed from the store');
         request.onerror = () => console.log('item could not be removed from the store', request.error);

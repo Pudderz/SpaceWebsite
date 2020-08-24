@@ -10,7 +10,7 @@ let date = document.getElementById('imageDate');
 let close = document.querySelector('.close');
 let search = document.querySelector('#search-bar');
 let remove = document.querySelector('#remove')
-
+let modalRemoveButton = document.getElementById("delete");
 
 let createImages = (photoCollection) =>{
     if(photoCollection.length == 0){
@@ -20,6 +20,7 @@ let createImages = (photoCollection) =>{
             let image = document.createElement('img');
             image.src = element.url;
             image.alt = element.title;
+            image.loading = 'lazy';
             image.classList.add('searchResult')
             let li = document.createElement('li');
             li.appendChild(image);
@@ -55,12 +56,8 @@ openRequest.onerror = () => {
 
 openRequest.onsuccess = () => {
     db = openRequest.result;
-    console.log('db successful');
-    console.log('db:'+ db);
-
+  
     let grabImage = (() =>{
-        console.log('ad')
-    console.log('db:'+ db)
     let transaction = db.transaction('imageSaved', 'readonly');
     let objectStore = transaction.objectStore('imageSaved');
     let request = objectStore.getAll()
@@ -134,19 +131,27 @@ remove.addEventListener('click',()=> {
     if(remove.classList.contains('removing')){
         remove.textContent = "Cancel Removing"
         removePhotos.forEach(e=>{
-            e.style.border = '2px solid red';  
             e.classList.add("remove");
-        })
-        
+        })    
     }else{
         remove.textContent = "Remove an image"
-        removePhotos.forEach(e=>{
-        removePhotos.forEach(e=>{
-            e.style.border = 'none';  
+        removePhotos.forEach(e =>{
+        removePhotos.forEach(e =>{  
             e.classList.remove("remove");
         })
     });    
     }
     
    
+})
+
+modalRemoveButton.addEventListener('click',()=>{
+    deleteImage(e);
+})
+
+
+
+let tabs = document.querySelector('#tabs');
+tabs.addEventListener('click', (e)=>{
+    console.log(e.target);
 })
