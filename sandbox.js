@@ -12,6 +12,7 @@ let imageDetails = '';
 let imageUrl='';
 let photoDetails = document.getElementById('photoDetails');
 let displayDetails = document.getElementById('displayDetails')
+let photoDiv = document.querySelector('.daily-image')
 let changeNav = (x) =>{
     x.classList.toggle('change');
     
@@ -88,19 +89,39 @@ let nasaPhotoDate = (() =>{
 let fetchRequest = async (date, hdBool)=>{
     let photo = document.querySelector('#image');
     let details = document.querySelector('#details');
+    let iframe = document.querySelector('#iframe');
     let url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}&hd=${hdBool}`;
     let response = await fetch(url, {
     });
     let parsed = await response.json();
     console.log(parsed);
-    details.textContent = parsed.explanation;
-    photo.setAttribute('src', parsed.url);
-    photo.setAttribute('alt', `${parsed.title}`);  
-    imageTitle = parsed.title;
-    imageUrl = parsed.url;
-    imageDetails = parsed.explanation;
-    imageHdUrl = parsed.hdurl;
-    title.textContent = imageTitle;  
+    console.log(parsed.media_type)
+        details.textContent = parsed.explanation;
+    if(parsed.media_type =="image"){
+        photo.style.display = "block";
+        iframe.parentElement.style.display= "none";
+        photo.setAttribute('src', parsed.url);
+        photo.setAttribute('alt', `${parsed.title}`);  
+        imageTitle = parsed.title;
+        imageUrl = parsed.url;
+        imageDetails = parsed.explanation;
+        imageHdUrl = parsed.hdurl;
+        type= "image";
+        title.textContent = imageTitle;
+    }else if (parsed.media_type =="video"){
+        console.log(parsed.innerHTML);
+        photo.style.display = "none";
+        iframe.parentElement.style.display = "block";
+        iframe.src = parsed.url;
+        iframe.width = '100%';
+        iframe.height = '100%';
+        iframe.title = parsed.title;
+        imageTitle = parsed.title;
+        imageUrl = parsed.url;
+        imageDetails = parsed.explanation;
+        imageHdUrl = parsed.url;
+        type="video"
+    }  
 }
 
 
@@ -117,7 +138,7 @@ displayDetails.addEventListener('click', e =>{
     e.target.classList.toggle('show');
     if(e.target.className.includes('show')){
         photoDetails.style.display='block';
-        e.target.value = 'Hide details';
+        e.target.textContent = 'Hide details';
         height = document.documentElement.scrollHeight
         window.scroll({
             top: height,
@@ -125,7 +146,12 @@ displayDetails.addEventListener('click', e =>{
             behavior: 'smooth',
         })
     } else{
+        window.scroll({
+            top: 0,
+            left:0,
+            behavior: 'smooth',
+        })
         photoDetails.style.display='none';
-        e.target.value = 'Photo details';
+        e.target.textContent = 'Photo details';
     }
 })
