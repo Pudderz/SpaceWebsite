@@ -80,7 +80,9 @@ form{
     display:grid;
     grid-template-columns: repeat(5, 1fr);
 }
-
+#choice button{
+    cursor: pointer;
+}
 #photoDetails{
     display:none;
     position: relative;
