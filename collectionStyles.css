@@ -23,6 +23,7 @@ ul {
 
   ul img:hover{
       opacity: 0.7;
+      transition: 0.3s;
   }
 
   @media (max-aspect-ratio: 1/1) {

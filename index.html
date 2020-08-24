@@ -29,7 +29,7 @@
         </nav>
     </div>
     
-    <div class="background">
+    <!-- <div class="background">
         <div class="Space">
             <svg width="100%" height="1000" viewBox="0 0 1500 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="Surface Book - 1" clip-path="url(#clip0)">
@@ -87,37 +87,35 @@
                 </svg>
                 
                             
-        </div>
+        </div> -->
 
-        <h1>Daily Asteroids NASA Api</h1>
+        <!-- <h1>Daily Asteroids NASA Api</h1> -->
         <!-- <div class="APODButton">
             <p>Click to view NASA's Daily Picture</p>
         </div>
         <div class="dailyAsteroids">
             <p>Click to view Nasa's daily Asteroids</p>
         </div> -->
-    </div>
+    <!-- </div> -->
    
     <div class="NASAAPOD">
         <div class ="title">
-         <h2>NASA Daily Pictures</h2>
-        
-        <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>   
+        <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>  
+        <form>
+            <label for="inputDate">
+                <p>Search a new date: </p>
+                <input id="inputDate" type="date" required>
+                <input id="" type="submit">
+            </label>
+        </form> 
         </div>
          
         <div class="daily-image">
-            <img  id ="image" src="" alt="placeholder image">
-        </div>
+            <img  id ="image" src="" alt="placeholder image">  
+         </div>
         <div id="group">
             <h4 id="header"></h4>
             
-            <form>
-                <label for="inputDate">
-                    <p>Search a new date: </p>
-                    <input id="inputDate" type="date" required>
-                    <input id="" type="submit">
-                </label>
-            </form>
             <div id="choice">
                 <button id="changeQuality">HD version</button>
                 <button><a id="galleryLink" href="savedImages.html">My Collection</a></button>
@@ -125,14 +123,17 @@
                 <button id="DeleteImage">Remove from my Gallery</button>
                 <button id="displayDetails">Photo Details</button>
             </div>
+            <div id="photoDetails">
+                <h4>Photo Details:</h4>
+                <p id ="details"></p>    
+                <div id ="apodLink">
+                    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer'>More Details</a>
+                </div> 
+            </div>
+        
         </div>
-        <section id="photoDetails">
-            <h4>Photo Details:</h4>
-            <p id ="details"></p>    
-            <div id ="apodLink">
-                <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer'>More Details</a>
-            </div> 
-        </section>
+        
+        
     </div>
     <!-- <div>
             <h3>Differences</h3>
