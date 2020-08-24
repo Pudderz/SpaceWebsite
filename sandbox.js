@@ -10,9 +10,12 @@ let timeForm = document.querySelector('form');
 let imageTitle ='';
 let imageDetails = '';
 let imageUrl='';
+let imageHdUrl='';
 let photoDetails = document.getElementById('photoDetails');
 let displayDetails = document.getElementById('displayDetails')
 let photoDiv = document.querySelector('.daily-image')
+let changeImageQuality =document.querySelector('#changeQuality');
+
 let changeNav = (x) =>{
     x.classList.toggle('change');
     
@@ -100,6 +103,7 @@ let fetchRequest = async (date, hdBool)=>{
     if(parsed.media_type =="image"){
         photo.style.display = "block";
         iframe.parentElement.style.display= "none";
+        iframe.src="";
         photo.setAttribute('src', parsed.url);
         photo.setAttribute('alt', `${parsed.title}`);  
         imageTitle = parsed.title;
@@ -125,12 +129,25 @@ let fetchRequest = async (date, hdBool)=>{
 }
 
 
-fetchRequest(nasaPhotoDate, true);
+function qualityChange(){
+    changeImageQuality.classList.toggle('hd');
+    if(changeImageQuality.classList.contains('hd')){
+        changeImageQuality.textContent = "SD version";
+        image.src = imageHdUrl;
+    }else{
+        image.src = imageUrl;
+        changeImageQuality.textContent = "HD version";
+    }
+}
 
+
+fetchRequest(nasaPhotoDate, true);
 timeForm.addEventListener('submit', e =>{
     e.preventDefault();
     console.log(e.target[0].value);
-    fetchRequest(e.target[0].value, false)
+    fetchRequest(e.target[0].value, false);
+    changeImageQuality.classList.add('hd');
+    qualityChange();
 });
 
 
@@ -155,3 +172,5 @@ displayDetails.addEventListener('click', e =>{
         e.target.textContent = 'Photo details';
     }
 })
+
+changeImageQuality.addEventListener('click', ()=> qualityChange())
