@@ -15,6 +15,7 @@ let photoDetails = document.getElementById('photoDetails');
 let displayDetails = document.getElementById('displayDetails')
 let photoDiv = document.querySelector('.daily-image')
 let changeImageQuality =document.querySelector('#changeQuality');
+let type ="";
 
 let changeNav = (x) =>{
     x.classList.toggle('change');
@@ -107,6 +108,7 @@ let fetchRequest = async (date, hdBool)=>{
         imageDetails = parsed.explanation;
         imageHdUrl = parsed.hdurl;
         type= "image";
+        imageDate=date;
         title.textContent = imageTitle;
     }else if (parsed.media_type =="video"){
         console.log(parsed.innerHTML);
@@ -120,6 +122,7 @@ let fetchRequest = async (date, hdBool)=>{
         imageUrl = parsed.url;
         imageDetails = parsed.explanation;
         imageHdUrl = parsed.url;
+        imageDate=date;
         type="video"
     }  
 }

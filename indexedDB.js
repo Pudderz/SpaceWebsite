@@ -8,6 +8,8 @@ openRequest.onupgradeneeded = (e)=> {
     db = openRequest.result;
     db.createObjectStore('imageSaved');
     db.createObjectStore('asteroidsSaved');
+    db.createObjectStore('videoSaved');
+    db.createObjectStore('presetImages');
 }
 openRequest.onerror = () => {
     console.log(openRequest.error);
@@ -16,15 +18,18 @@ openRequest.onerror = () => {
 openRequest.onsuccess = () => {
     db = openRequest.result;
     removeImage();
-    let store = objectStore => {
+    let store = () => {
         console.log(image.alt);
-        if(image.complete && !(image.alt =='placeholder image')){
+        let objectStore = (type =="image")? "imageSaved": "videoSaved";
+        if(!(image.alt =='placeholder image') || type =="video"){
             let transaction = db.transaction(`${objectStore}`,'readwrite');
             let items = transaction.objectStore(`${objectStore}`);
             let item = {
                 title: imageTitle,
+                date:imageDate,
                 explanation: imageDetails,
                 url: imageUrl,
+                hdurl: imageHdUrl,
             }
             let request = items.add(item, imageTitle);
 
@@ -37,21 +42,23 @@ openRequest.onsuccess = () => {
         }else{
             console.log('No image')
         }
+        
     }
     let saved = document.querySelector('#saveImage');
         saved.addEventListener('click', () => {
-        store('imageSaved'); 
+        store(); 
     });
 
 
 };
 let removeImage = () => {
     deleteImage.addEventListener('click', (e) => {
-        let transaction = db.transaction('imageSaved', 'readwrite');
-        let items = transaction.objectStore('imageSaved');
-        let request = items.delete(image.alt);
-        request.onsuccess = () => console.log('item removed from the store');
-        request.onerror = () => console.log('item could not be removed from the store', request.error);
+        let objectStore = (type == "image")? "imageSaved": "videoSaved";
+        let transaction = db.transaction(objectStore, 'readwrite');
+        let items = transaction.objectStore(objectStore);
+        let request = items.delete(imageTitle);
+        request.onsuccess = () => console.log(`${type} removed from your collection`);
+        request.onerror = () => console.log(`${type} could not be removed from the store ${request.error}`);
     })
 
 }
