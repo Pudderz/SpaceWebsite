@@ -16,6 +16,8 @@ let displayDetails = document.getElementById('displayDetails')
 let photoDiv = document.querySelector('.daily-image')
 let changeImageQuality =document.querySelector('#changeQuality');
 let type ="";
+let deleteImage = document.querySelector('#deleteImage');
+let image = document.querySelector('#image');
 
 let changeNav = (x) =>{
     x.classList.toggle('change');
@@ -29,13 +31,9 @@ let morphing = anime({
     ],
     easing: 'easeInOutQuad',
     duration: 500,
-    rotate: anime.stagger([-360, 360]),
     autoplay: false,
     loop: 1, 
 
-    update: function(anim){
-        console.log('progress : '+Math.round(anim.progress)+'%');
-    },
     changeBegin: function(){
         changeBegan++;
         console.log('animation began');
@@ -44,9 +42,6 @@ let morphing = anime({
             console.log('removed')
         }
         nav.style.display = 'inline';
-        console.log('inline');
-        
-        
     },
 
     changeComplete: function() {
@@ -62,28 +57,23 @@ let morphing = anime({
     },
     loopComplete: function(){
         morphing.reverse();
-        console.log('loopComplete ran')
+        console.log('loopComplete ran');
     }
 });   
 
 navButton.addEventListener('click', ()=>{
-    console.log('clicked')
+    console.log('clicked');
     morphing.play();
 })
 
 //Get current day to set date.max and start fetching current date image
 let nasaPhotoDate = (() =>{
-    let date = new Date();
-    let day = date.getDate();
-    let year = date.getFullYear();
-    let month = `${date.getMonth()+1}`;
+    let date = new Date().toISOString().split('T')[0]
     let photoDate = document.querySelector('#nasaPhotoDate');
-    photoDate.textContent = `Nasa's Picture of ${day}/${month}/${year}`;
-    console.log()
-    if(month.length==1)month = `0${month}`;
     let inputDate = document.getElementById('inputDate');
-    inputDate.max= `${year}-${month}-${day}`;
-    return `${year}-${month}-${day}`;
+    photoDate.textContent = `Nasa's Picture of ${date}`;
+    inputDate.setAttribute('max', date )
+    return date;
 })();
 
 let fetchRequest = async (date, hdBool)=>{
@@ -94,21 +84,15 @@ let fetchRequest = async (date, hdBool)=>{
     let response = await fetch(url, {
     });
     let parsed = await response.json();
-    console.log(parsed);
-    console.log(parsed.media_type)
         details.textContent = parsed.explanation;
     if(parsed.media_type =="image"){
         photo.style.display = "block";
         iframe.parentElement.style.display= "none";
-        iframe.src="";
+        iframe.src=""; // stops video playing
         photo.setAttribute('src', parsed.url);
         photo.setAttribute('alt', `${parsed.title}`);  
-        imageTitle = parsed.title;
-        imageUrl = parsed.url;
-        imageDetails = parsed.explanation;
         imageHdUrl = parsed.hdurl;
         type= "image";
-        imageDate=date;
         title.textContent = imageTitle;
     }else if (parsed.media_type =="video"){
         console.log(parsed.innerHTML);
@@ -118,32 +102,31 @@ let fetchRequest = async (date, hdBool)=>{
         iframe.width = '100%';
         iframe.height = '100%';
         iframe.title = parsed.title;
-        imageTitle = parsed.title;
-        imageUrl = parsed.url;
-        imageDetails = parsed.explanation;
         imageHdUrl = parsed.url;
-        imageDate=date;
         type="video"
     }  
+    imageTitle = parsed.title;
+    imageUrl = parsed.url;
+    imageDetails = parsed.explanation;
+    imageDate=date;
 }
 
 
 function qualityChange(){
-    changeImageQuality.classList.toggle('hd');
-    if(changeImageQuality.classList.contains('hd')){
+    if(!changeImageQuality.classList.contains('hd')){
         changeImageQuality.textContent = "SD version";
         image.src = imageHdUrl;
     }else{
         image.src = imageUrl;
         changeImageQuality.textContent = "HD version";
     }
+    changeImageQuality.classList.toggle('hd');
 }
 
 
 fetchRequest(nasaPhotoDate, true);
 timeForm.addEventListener('submit', e =>{
     e.preventDefault();
-    console.log(e.target[0].value);
     fetchRequest(e.target[0].value, false);
     changeImageQuality.classList.add('hd');
     qualityChange();
@@ -162,13 +145,51 @@ displayDetails.addEventListener('click', e =>{
             behavior: 'smooth',
         })
     } else{
-        window.scroll({
-            top: 0,
-            left:0,
-        })
-        photoDetails.style.display='none';
+        photoDetails.style.display = 'none';
         e.target.textContent = 'Photo details';
     }
 })
 
 changeImageQuality.addEventListener('click', ()=> qualityChange())
+
+
+
+let store = () => {
+    console.log(image.alt);
+    let objectStore = (type =="image")? "imageSaved": "videoSaved";
+    if(!(image.alt =='placeholder image') || type =="video"){
+        let transaction = db.transaction(`${objectStore}`,'readwrite');
+        let items = transaction.objectStore(`${objectStore}`);
+        let item = {
+            title: imageTitle,
+            date:imageDate,
+            explanation: imageDetails,
+            url: imageUrl,
+            hdurl: imageHdUrl,
+        };
+        let request = items.add(item, imageTitle);
+
+        request.onsuccess = () => {
+            console.log('item added to the store', request.result);
+        }
+        request.onerror = () => {
+            console.log('item could not be added to the store', request.error);
+        }
+    }else{
+        console.log('No image');
+    }
+    
+}
+let saved = document.querySelector('#saveImage');
+saved.addEventListener('click', () => {
+store(); 
+});
+
+deleteImage.addEventListener('click', (e) => {
+    let objectStore = (type == "image")? "imageSaved": "videoSaved";
+    let transaction = db.transaction(objectStore, 'readwrite');
+    let items = transaction.objectStore(objectStore);
+    let request = items.delete(imageTitle);
+    request.onsuccess = () => console.log(`${type} removed from your collection`);
+    request.onerror = () => console.log(`${type} could not be removed from the store ${request.error}`);
+})
