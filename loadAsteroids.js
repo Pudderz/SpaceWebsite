@@ -84,7 +84,6 @@ openRequest.onsuccess = () => {
     db = openRequest.result;
     console.log('db running')
     
-    
 }
 
 let saveAsteroid = element => {
@@ -128,24 +127,6 @@ let removeAsteroid = key =>{
 }
 
 
-    
-information.addEventListener('click', element => {
-    if(element.target.className =="details"){
-        let div = element.target.parentElement.childNodes[1];
-    if(div.style.display == "" || div.style.display == "none"){
-            div.style.display = 'block';    
-    } else{
-            div.style.display = "none";
-        }
-    } else if(element.target.className =="save"){
-        saveAsteroid(element.target.parentElement);
-    } else if (element.target.className =="remove"){
-        removeAsteroid(element.target.parentElement.childNodes[0].textContent);
-    }
-})
-
-
-
 
 function getDate(i){
     let date = new Date();
@@ -173,3 +154,18 @@ fetchAsteroids(startDate, endDate);
 i+=2;
 getDate(i);
 fetchAsteroids(startDate, endDate);
+
+information.addEventListener('click', element => {
+    if(element.target.className =="details"){
+        let div = element.target.parentElement.childNodes[1];
+    if(div.style.display == "" || div.style.display == "none"){
+            div.style.display = 'block';    
+    } else{
+            div.style.display = "none";
+        }
+    } else if(element.target.className =="save"){
+        saveAsteroid(element.target.parentElement);
+    } else if (element.target.className =="remove"){
+        removeAsteroid(element.target.parentElement.childNodes[0].textContent);
+    }
+})
