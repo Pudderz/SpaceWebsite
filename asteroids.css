@@ -1,0 +1,11 @@
+input{
+    cursor: pointer;
+}
+
+#list{
+    cursor: pointer;
+}
+
+.information{
+    display: none;
+}
