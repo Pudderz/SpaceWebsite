@@ -1,5 +1,4 @@
 let collection = document.querySelector('.collection');
-
 let db;
 let allImage = document.querySelector('ul'); 
 let modal = document.querySelector('#modalDiv');
@@ -63,8 +62,7 @@ openRequest.onsuccess = () => {
     let request = objectStore.getAll()
     request.onsuccess = () => {
         console.log('items viewed', request.result);
-        let photoCollection = request.result;
-        createImages(photoCollection);
+        createImages(request.result);
         searchImages();
         deleteImage();
     }
@@ -155,3 +153,103 @@ let tabs = document.querySelector('#tabs');
 tabs.addEventListener('click', (e)=>{
     console.log(e.target);
 })
+
+
+//Asteroid Gallery section
+let displayAsteroids = data =>{
+        let ol = document.querySelector('ol');
+        data.forEach( e => {
+            let content = document.createElement('li');
+
+            let detailInput = document.createElement('button');
+            detailInput.classList.add("details");
+            detailInput.textContent = "more details";
+            detailInput.id = e.id;
+
+            let save = document.createElement('button');
+            save.classList.add('save');
+            save.textContent = "save to collection";
+
+            let remove = document.createElement('button');
+            remove.classList.add('removeAsteroid');
+            remove.textContent = "remove from collection";
+
+            let details = document.createElement('div');
+            details.classList.add("information");
+            details.setAttribute('id', e.id);
+            details.innerHTML = `<p class="size"> Size:${e.absolute_magnitude_h}</p>
+            <p class="approachDate">Close approach date: ${e.close_approach_Date}</p>`;
+            
+            content.innerHTML = `<h4 class="name">${e.title}</h4>`;
+
+            let diameter = document.createElement('p');
+            diameter.textContent = `Estimated diameter in meters: Min:${e.diameterMin} Max:${e.diameterMax}`;
+            diameter.classList.add('diameter');
+
+            let url = document.createElement('a');
+            url.classList.add('url');
+            url.href= `${e.url}`;
+            url.textContent= "More Details...";
+            url.target = "_blank";
+
+            let speed = document.createElement('p');
+            speed.textContent = `Speed: ${e.speed}mph`;
+
+            speed.classList.add('speed');
+
+            details.appendChild(speed)
+            details.appendChild(diameter);
+            details.appendChild(url);
+            content.appendChild(details);
+            content.appendChild(detailInput);
+            content.appendChild(save);
+            content.appendChild(remove);
+            ol.appendChild(content);
+        });
+
+    
+};
+
+let asteroid = document.querySelector('#list');
+let getAsteroids = () => {
+    let transaction = db.transaction('asteroidsSaved','readonly');
+    let items = transaction.objectStore('asteroidsSaved');
+    let request = items.getAll();
+    request.onsuccess = () =>{
+        console.log(request.result);
+        displayAsteroids(request.result);
+    }
+    request.onerror = ()=>{
+        console.log(request.error);
+    }
+}
+
+let removeIndexedAsteroid = (asteroidName, itemRemoving) => {
+    let transaction = db.transaction('asteroidsSaved','readwrite');
+    let items = transaction.objectStore('asteroidsSaved');
+    let request = items.delete(asteroidName);
+    request.onsuccess = () =>{
+        console.log('Successfully removed');
+        itemRemoving.remove();
+
+    }
+    request.onerror = ()=>{
+        console.log(request.error);
+    }
+}
+
+asteroid.addEventListener('click', (e)=>{
+    if(e.target.classList.contains('removeAsteroid')){
+        removeIndexedAsteroid(e.target.parentElement.childNodes[0].textContent, e.target.parentElement);
+    }
+
+})
+
+
+//Preset collection
+
+
+
+
+//Video Collection
+
