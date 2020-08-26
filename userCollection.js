@@ -30,6 +30,18 @@ let createImages = photoCollection =>{
     }   
 } 
 
+function getCollection(storeName, callback){
+    let transaction = db.transaction(storeName, 'readonly');
+    let objectStore = transaction.objectStore(storeName);
+    let request = objectStore.getAll()
+    request.onsuccess = () => {
+        callback(request.result)
+    }
+    request.onerror = () =>{
+        console.log('items could not be viewed', request.error);
+    }
+};
+
 let searchImages = () =>{
     let imageList = document.querySelectorAll('.searchResult');
         search.addEventListener('keydown', (element) =>{
@@ -225,19 +237,30 @@ ol.addEventListener('click', e  => {
 
 
 //Video Collection
+function displayVideo(content){
+    let videoList = document.querySelector('#videoList')
+    content.forEach((e, index)=>{
+        let {title: videoTitle, date: videoDate, 
+            explanation: videoDetails, url} = e; 
+        let iframeTitle = document.createElement('h4');
+        iframeTitle.textContent = videoTitle;
+        let iframeDate = document.createElement('h5');
+        iframeDate.textContent = videoDate;
+        let iframeDetails = document.createElement('p');
+        iframeDetails.textContent = videoDetails;
+        let iframe = document.createElement('iframe');
+        iframe.src = url;
+        iframe.title = videoTitle;
+        let li = document.createElement('li');
+        li.appendChild(iframeTitle);
+        li.appendChild(iframeDate);
+        li.appendChild(iframe);
+        li.appendChild(iframeDetails);
+        videoList.appendChild(li);
 
+    });
+}
 //Get Collections
-function getCollection(storeName, callback){
-    let transaction = db.transaction(storeName, 'readonly');
-    let objectStore = transaction.objectStore(storeName);
-    let request = objectStore.getAll()
-    request.onsuccess = () => {
-        callback(request.result)
-    }
-    request.onerror = () =>{
-        console.log('items could not be viewed', request.error);
-    }
-};
 
 
 function callback(){
@@ -245,4 +268,8 @@ function callback(){
         createImages(result);
         searchImages();
     });
+    getCollection('videoSaved', (result)=>{
+    console.log('videos saved');
+    displayVideo(result)
+})
 };
