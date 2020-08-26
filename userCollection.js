@@ -11,7 +11,8 @@ let search = document.querySelector('#search-bar');
 let remove = document.querySelector('#remove')
 let modalRemoveButton = document.getElementById("delete");
 let db;
-
+let modalQualityChange = document.getElementById('qualityChange')
+console.log(modalQualityChange.textContent);
 let createImages = photoCollection =>{
     if(photoCollection.length == 0){
         collection.innerHTML = '<p>You have no images in your collection</p>';
@@ -41,7 +42,12 @@ let searchImages = () =>{
             })
         });
 
-}
+};
+
+let tabs = document.querySelector('#tabs');
+tabs.addEventListener('click', e=>{
+    console.log(e.target);
+});
 
 let removeObjectStoreItem = (itemName, itemLocation, storeName) => {
     let transaction = db.transaction(storeName,'readwrite');
@@ -57,27 +63,32 @@ let removeObjectStoreItem = (itemName, itemLocation, storeName) => {
     }
 }
 
-
-collection.addEventListener('click', e => {
-    console.log(e.target.classList.contains('remove'))
-    if(!e.target.classList.contains('remove') &&e.target.localName == "img"){
-        modal.style.display = "block";
-        let transaction = db.transaction('imageSaved', 'readonly');
-        let objectStore = transaction.objectStore('imageSaved');
-        let request = objectStore.get(e.target.alt);
+let getItem = (storeName, itemName, callback) =>{
+    let transaction = db.transaction(storeName, 'readonly');
+        let objectStore = transaction.objectStore(storeName);
+        let request = objectStore.get(itemName);
         request.onsuccess = () => {
-            console.log('item viewed', request.result);
-            let photoDetails = request.result;
-            console.log(photoDetails)
-            modalImg.src = photoDetails.url;
-            modalImg.alt = photoDetails.title;
-            date.textContent = photoDetails.date;
-            title.textContent = photoDetails.title;
-            details.textContent = request.result.explanation;
+            callback(request.result);
         }
         request.onerror = () =>{
             console.log('item could not be viewed', request.error);
         }
+}
+
+collection.addEventListener('click', e => {
+    if(!e.target.classList.contains('remove') && e.target.localName == "img"){
+        modal.style.display = "block";
+        getItem('imageSaved', e.target.alt, photoDetails => {
+            console.log(photoDetails);
+            modalImg.src = photoDetails.url;
+            modalImg.alt = photoDetails.title;
+            date.textContent = photoDetails.date;
+            title.textContent = photoDetails.title;
+            details.textContent = photoDetails.explanation;
+            //For changing the quality in modal
+            modalImg.setAttribute('data-hdSrc', photoDetails.hdurl);
+            modalImg.setAttribute('data-stdSrc', photoDetails.url);
+        })
     } else if(e.target.classList.contains('remove') && e.target.localName == "img"){
         removeObjectStoreItem(e.target.alt, e.target.parentElement, 'imageSaved');
     }
@@ -103,41 +114,53 @@ remove.addEventListener('click',()=> {
     }
 });
 
+//Modal buttons
 modalRemoveButton.addEventListener('click',()=>{
     let imageRemoving = document.querySelector(`.collection [alt="${modalImg.alt}"]`);
     removeObjectStoreItem(imageRemoving.alt, imageRemoving.parentElement, 'imageSaved');
     modal.style.display= "none";
-})
-modalClose.addEventListener('click',() =>{
-    modal.style.display = 'none';   
 });
-modalFullscreen.addEventListener('click', ()=>{
-    
-})
 
-
-let tabs = document.querySelector('#tabs');
-tabs.addEventListener('click', e=>{
-    console.log(e.target);
-})
-
-function getCollection(storeType){
-    let transaction = db.transaction(storeType, 'readonly');
-    let objectStore = transaction.objectStore(storeType);
-    let request = objectStore.getAll()
-    request.onsuccess = () => {
-        if(storeType =="imageSaved"){
-            createImages(request.result);
-            searchImages();
-            } else if(storeType =="asteroidsSaved"){
-            displayAsteroids(request.result);
-            }
-        
-        }
-    request.onerror = () =>{
-        console.log('items could not be viewed', request.error);
+function ImageQualityChange(reset, element){
+    console.log('quality change clicked');
+    let hdImage = modalImg.attributes['data-hdSrc'].value;
+    let stdImage = modalImg.attributes['data-stdSrc'].value;
+    if(modalImg.classList.contains('hd') || reset == true){
+        modalImg.src = stdImage;
+        element.textContent = "HD Version";
+        modalImg.classList.remove('hd');
+    } else{
+        modalImg.src = hdImage;
+        element.textContent = "SD Version";
+        modalImg.classList.add('hd');
     }
-};
+}
+
+modalQualityChange.addEventListener('click', e=>{
+   ImageQualityChange(false, e.target);
+})
+
+modalClose.addEventListener('click',() =>{
+    modal.style.display = 'none'; 
+    ImageQualityChange(true, modalQualityChange);  
+});
+
+
+modalFullscreen.addEventListener('click', e => {
+    console.log('fullscreen clicked')
+    console.log(e.target.parentElement.parentElement.childNodes);
+    let text = e.target.parentElement.parentElement.childNodes[5];
+    let img = e.target.parentElement.parentElement.childNodes[3];
+    text.classList.toggle('hidden');
+    if(text.classList.contains('hidden')){
+        text.style.display = "none";
+        img.style['max-height'] = "100%";
+    }else {
+        text.style.display = "block";
+        img.style['max-height'] = "70%";
+    };
+});
+console.log(modalQualityChange);
 
 //Asteroid Gallery section
 let ol = document.querySelector('ol');
@@ -188,8 +211,7 @@ let displayAsteroids = data =>{
     
 };
 
-
-ol.addEventListener('click', (e)=>{
+ol.addEventListener('click', e  => {
     if(e.target.classList.contains('removeAsteroid')){
         removeObjectStoreItem(e.target.parentElement.childNodes[0].textContent, e.target.parentElement, 'asteroidsSaved');
     }
@@ -204,3 +226,23 @@ ol.addEventListener('click', (e)=>{
 
 //Video Collection
 
+//Get Collections
+function getCollection(storeName, callback){
+    let transaction = db.transaction(storeName, 'readonly');
+    let objectStore = transaction.objectStore(storeName);
+    let request = objectStore.getAll()
+    request.onsuccess = () => {
+        callback(request.result)
+    }
+    request.onerror = () =>{
+        console.log('items could not be viewed', request.error);
+    }
+};
+
+
+function callback(){
+    getCollection('imageSaved', (result)=>{
+        createImages(result);
+        searchImages();
+    });
+};

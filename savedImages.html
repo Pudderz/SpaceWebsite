@@ -11,7 +11,7 @@
        <section id='tabs'>
             <h3>Image Collection</h3>
             <h3>Asteroid Collection<h3>
-            <h3>Preset Collection</h3>
+            <h3>Preset Image Collection</h3>
             <h3>Video Collection</h3>
         </section> 
     </header>
@@ -22,11 +22,13 @@
         <button id="remove">Remove an image</button>
         <ul class="collection"></ul>
         <div id="modalDiv" class="modal">
-            <button class="close" >&times;</button>
+            <div class ="options">
+                <button class="close" >&times;</button>
+                <button id="delete">Delete image</button>
+                <button id="qualityChange">HD version</button>
+                <button id="fullscreen">Fullscreen</button> 
+            </div>
             <img id="modalImg" src="" alt="placeholder">
-            <button id="delete">Delete image</button>
-            <button id="qualityChange">HD version</button>
-            <button id="fullscreen">Fullscreen</button>
             <div id ="details">
                 <h2 id="imageTitle"></h2>
                 <h3 id ="imageDate"></h3>

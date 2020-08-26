@@ -10,9 +10,11 @@ let displayAsteroids = data =>{
     console.log(data);
     
     for(date in data){
+        
         let newDate = document.createElement('h3');
         newDate.textContent = date;
-        ul.appendChild(newDate)
+        ul.appendChild(newDate);
+
         let array = data[date];
         array.forEach(e=>{
             let content = document.createElement('li');
@@ -69,61 +71,65 @@ let displayAsteroids = data =>{
     
 };
 
+function callback(){
+    let saveAsteroid = element => {
+        console.log(element.childNodes);
+        let date = document.querySelector('#photoDate')
+        let transaction = db.transaction(`asteroidsSaved`,'readwrite');
+        let items = transaction.objectStore(`asteroidsSaved`);
+        let item = {
+            title: element.childNodes[0].textContent,
+            id:element.childNodes[1].attributes['id'].value,
+            date: date.textContent,
+            diameterMin: element.childNodes[1].childNodes[4].attributes[0].value,
+            diameterMax: element.childNodes[1].childNodes[4].attributes[2].value,
+            absolute_magnitude_h:element.childNodes[1].childNodes[0].attributes[1].value,
+            close_approach_data:element.childNodes[1].childNodes[2].attributes[1].value,
+            speed:element.childNodes[1].childNodes[3].attributes[0].value,
+            url:element.childNodes[1].childNodes[5].href,
+        }
+        let request = items.add(item, element.childNodes[0].textContent);
 
-let openRequest = indexedDB.open('storage', 1);
-openRequest.onupgradeneeded = (e)=> {
-    db = openRequest.result;
-    db.createObjectStore('imageSaved');
-    db.createObjectStore('asteroidsSaved');
-}
-openRequest.onerror = () => {
-    console.log(openRequest.error);
-};
+        request.onsuccess = () => {
+            console.log('item added to the store', request.result)
+        }
+        request.onerror = () => {
+            console.log('item could not be added to the store', request.error)
+        }
+    };
+    let removeAsteroid = key =>{
+        console.log(key);
+        let transaction = db.transaction(`asteroidsSaved`, 'readwrite');
+        let items = transaction.objectStore('asteroidsSaved');
+        let request = items.delete(key);
+        request.onsuccess = () =>{
+            console.log('Item has been deleted from your collection');
+        }
+        request.onerror = () =>{
+            console.log('Error, item has not deleted: ' + request.error)
+        }
 
-openRequest.onsuccess = () => {
-    db = openRequest.result;
-    console.log('db running')
+    }
     
-}
-
-let saveAsteroid = element => {
-    console.log(element.childNodes);
-            let date = document.querySelector('#photoDate')
-            let transaction = db.transaction(`asteroidsSaved`,'readwrite');
-            let items = transaction.objectStore(`asteroidsSaved`);
-            let item = {
-                title: element.childNodes[0].textContent,
-                id:element.childNodes[1].attributes['id'].value,
-                date: date.textContent,
-                diameterMin: element.childNodes[1].childNodes[4].attributes[0].value,
-                diameterMax: element.childNodes[1].childNodes[4].attributes[2].value,
-                absolute_magnitude_h:element.childNodes[1].childNodes[0].attributes[1].value,
-                close_approach_data:element.childNodes[1].childNodes[2].attributes[1].value,
-                speed:element.childNodes[1].childNodes[3].attributes[0].value,
-                url:element.childNodes[1].childNodes[5].href,
+    information.addEventListener('click', element => {
+        if(element.target.className =="details"){
+            console.log('more details')
+            let div = element.target.parentElement.childNodes[1];
+            let style = div.style.display;
+            if(style == "" || style == "none"){
+                div.style.display = "block";
+                element.target.textContent = "Less Details";
+            }else{
+                div.style.display = "none";
+                element.target.textContent = "More Details"
             }
-            let request = items.add(item, element.childNodes[0].textContent);
-
-            request.onsuccess = () => {
-                console.log('item added to the store', request.result)
-            }
-            request.onerror = () => {
-                console.log('item could not be added to the store', request.error)
-            }
-};
-
-let removeAsteroid = key =>{
-    console.log(key);
-    let transaction = db.transaction(`asteroidsSaved`, 'readwrite');
-    let items = transaction.objectStore('asteroidsSaved');
-    let request = items.delete(key);
-    request.onsuccess = () =>{
-        console.log('Item has been deleted from your collection');
-    }
-    request.onerror = () =>{
-        console.log('Error, item has not deleted: ' + request.error)
-    }
-
+            
+        } else if(element.target.className =="save"){
+            saveAsteroid(element.target.parentElement);
+        } else if (element.target.className =="remove"){
+            removeAsteroid(element.target.parentElement.childNodes[0].textContent);
+        }
+    })
 }
 
 
@@ -143,7 +149,6 @@ let fetchAsteroids = async(start,end) =>{
         .then(response => response.json())
         .then(data =>{
             displayAsteroids(data.near_earth_objects);
-            moreDetails();
         })
         .catch(e => console.log(e.error))
 }
@@ -155,17 +160,3 @@ i+=2;
 getDate(i);
 fetchAsteroids(startDate, endDate);
 
-information.addEventListener('click', element => {
-    if(element.target.className =="details"){
-        let div = element.target.parentElement.childNodes[1];
-    if(div.style.display == "" || div.style.display == "none"){
-            div.style.display = 'block';    
-    } else{
-            div.style.display = "none";
-        }
-    } else if(element.target.className =="save"){
-        saveAsteroid(element.target.parentElement);
-    } else if (element.target.className =="remove"){
-        removeAsteroid(element.target.parentElement.childNodes[0].textContent);
-    }
-})

@@ -92,7 +92,7 @@ let fetchRequest = async (date, hdBool)=>{
         photo.setAttribute('src', parsed.url);
         photo.setAttribute('alt', `${parsed.title}`);  
         imageHdUrl = parsed.hdurl;
-        type= "image";
+        type = "image";
         title.textContent = imageTitle;
     }else if (parsed.media_type =="video"){
         console.log(parsed.innerHTML);
@@ -103,7 +103,7 @@ let fetchRequest = async (date, hdBool)=>{
         iframe.height = '100%';
         iframe.title = parsed.title;
         imageHdUrl = parsed.url;
-        type="video"
+        type ="video"
     }  
     imageTitle = parsed.title;
     imageUrl = parsed.url;
@@ -180,10 +180,7 @@ let store = () => {
     }
     
 }
-let saved = document.querySelector('#saveImage');
-saved.addEventListener('click', () => {
-store(); 
-});
+
 
 deleteImage.addEventListener('click', (e) => {
     let objectStore = (type == "image")? "imageSaved": "videoSaved";
@@ -193,3 +190,11 @@ deleteImage.addEventListener('click', (e) => {
     request.onsuccess = () => console.log(`${type} removed from your collection`);
     request.onerror = () => console.log(`${type} could not be removed from the store ${request.error}`);
 })
+
+
+function callback(){
+    let saved = document.querySelector('#saveImage');
+    saved.addEventListener('click', () => {
+        store(); 
+    });
+}

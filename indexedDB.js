@@ -8,13 +8,13 @@ openRequest.onupgradeneeded = (e)=> {
     db.createObjectStore('presetImages');
 }
 openRequest.onerror = () => {
-    console.log(openRequest.error);
+    console.log(`There was an error loading indexedDB ${openRequest.error}`);
 };
 
 openRequest.onsuccess = () => {
     db = openRequest.result;
     console.log('db running');
-    getCollection('imageSaved');
+    callback();
 };
 
 
