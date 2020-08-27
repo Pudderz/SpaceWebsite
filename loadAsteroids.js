@@ -9,11 +9,15 @@ let information = document.getElementById('list');
 
 let displayAsteroids = data =>{
     console.log(data);
+    
     for(date in data){
         
         let newDate = document.createElement('h3');
         newDate.textContent = date;
         ul.appendChild(newDate);
+        let asteroidNumber = document.createElement('h4');
+        asteroidNumber.textContent = `There will be ${data[date].length} asteroids today`;
+        ul.appendChild(asteroidNumber);
 
         let array = data[date];
         array.forEach(e=>{
@@ -163,11 +167,7 @@ let i = 0;
 getDate(i);
 fetchAsteroids(startDate, endDate);
 i+=2;
-getDate(i);
-fetchAsteroids(startDate, endDate);
-
-
-let observer = new IntersectionObserver((entries)=>{
+let observer = new IntersectionObserver((entries) => {
     if (entries[0].intersectionRatio > 0) {
         console.log(entries);
         observer.unobserve(entries[0].target);

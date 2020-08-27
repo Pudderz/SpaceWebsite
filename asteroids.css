@@ -9,3 +9,18 @@ input{
 .information{
     display: none;
 }
+
+body{
+    background-color: rgba(30, 30, 30, 0.945);
+    margin:0px;
+    font-family: 'Montserrat';
+    color: white;
+}
+
+li{
+    box-shadow: 0px 0px 10px 2px #1f4068;
+    margin:auto;
+    background-color: #1f4068;
+    width: 50%;
+    
+}
