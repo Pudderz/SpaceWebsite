@@ -270,6 +270,7 @@ function callback(){
     });
     getCollection('videoSaved', (result)=>{
     console.log('videos saved');
-    displayVideo(result)
-})
+    displayVideo(result);
+    });
+    
 };

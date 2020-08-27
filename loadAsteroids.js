@@ -6,9 +6,9 @@ let startDate = '';
 let endDate = '';
 let information = document.getElementById('list');
 
+
 let displayAsteroids = data =>{
     console.log(data);
-    
     for(date in data){
         
         let newDate = document.createElement('h3');
@@ -68,7 +68,13 @@ let displayAsteroids = data =>{
             ul.appendChild(content);
         });
     }
+    let item = document.createElement('p');
+    item.textContent = "loading";
+    item.classList.add("loadMore");
     
+    
+    ul.appendChild(item);
+    observer.observe(item);
 };
 
 function callback(){
@@ -160,3 +166,17 @@ i+=2;
 getDate(i);
 fetchAsteroids(startDate, endDate);
 
+
+let observer = new IntersectionObserver((entries)=>{
+    if (entries[0].intersectionRatio > 0) {
+        console.log(entries);
+        observer.unobserve(entries[0].target);
+        entries[0].target.classList.remove('loadMore');
+        i+=2;
+        getDate(i);
+        fetchAsteroids(startDate, endDate);
+    }
+},{
+    root:null,
+    threshold:1});
+    
