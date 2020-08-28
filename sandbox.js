@@ -2,11 +2,9 @@
 let navMorph = document.querySelector('.navBackground');
 let navButton = document.querySelector('.container');
 let menu = document.querySelector('#menu')
-let apiKey = "2A1UmguNwvSeRTvmHlZ5rXbsFErb3EH8Nu3YPJI2"
-let changeBegan, changeCompleted = 0;
-let nav = document.querySelector('#nav');
+
 let title = document.querySelector('#header');
-let timeForm = document.querySelector('form');
+let changeDate = document.querySelector('form');
 let imageTitle ='';
 let imageDetails = '';
 let imageUrl='';
@@ -19,52 +17,6 @@ let type ="";
 let deleteImage = document.querySelector('#deleteImage');
 let image = document.querySelector('#image');
 
-let changeNav = (x) =>{
-    x.classList.toggle('change');
-    
-}
-let morphing = anime({
-    targets: navMorph,
-    d:[
-        {value: "M795 525V472H729V495.67V525H760.807H795Z"},
-        {value: "M1498.5 999V1H0V423V999H744.5H1498.5Z"},
-    ],
-    easing: 'easeInOutQuad',
-    duration: 500,
-    autoplay: false,
-    loop: 1, 
-
-    changeBegin: function(){
-        changeBegan++;
-        console.log('animation began');
-        if(!(changeBegan%2)){
-            menu.classList.remove('showing');
-            console.log('removed')
-        }
-        nav.style.display = 'inline';
-    },
-
-    changeComplete: function() {
-        changeCompleted++;
-        console.log('completed')
-          if(changeCompleted%2){
-            menu.classList.add('showing');
-            console.log('added');
-        } else{
-            nav.style.display = 'none';
-            console.log('none');
-        }
-    },
-    loopComplete: function(){
-        morphing.reverse();
-        console.log('loopComplete ran');
-    }
-});   
-
-navButton.addEventListener('click', ()=>{
-    console.log('clicked');
-    morphing.play();
-})
 
 //Get current day to set date.max and start fetching current date image
 let nasaPhotoDate = (() =>{
@@ -77,6 +29,7 @@ let nasaPhotoDate = (() =>{
 })();
 
 let fetchRequest = async (date, hdBool)=>{
+    let apiKey = "2A1UmguNwvSeRTvmHlZ5rXbsFErb3EH8Nu3YPJI2";
     let photo = document.querySelector('#image');
     let details = document.querySelector('#details');
     let iframe = document.querySelector('#iframe');
@@ -87,6 +40,7 @@ let fetchRequest = async (date, hdBool)=>{
         details.textContent = parsed.explanation;
     if(parsed.media_type =="image"){
         photo.style.display = "block";
+        changeImageQuality.style.display = "block";
         iframe.parentElement.style.display= "none";
         iframe.src=""; // stops video playing
         photo.setAttribute('src', parsed.url);
@@ -97,6 +51,7 @@ let fetchRequest = async (date, hdBool)=>{
     }else if (parsed.media_type =="video"){
         console.log(parsed.innerHTML);
         photo.style.display = "none";
+        changeImageQuality.style.display = "none";
         iframe.parentElement.style.display = "block";
         iframe.src = parsed.url;
         iframe.width = '100%';
@@ -121,11 +76,11 @@ function qualityChange(){
         changeImageQuality.textContent = "HD version";
     }
     changeImageQuality.classList.toggle('hd');
-}
+};
+changeImageQuality.addEventListener('click', ()=> qualityChange());
 
 
-fetchRequest(nasaPhotoDate, true);
-timeForm.addEventListener('submit', e =>{
+changeDate.addEventListener('submit', e =>{
     e.preventDefault();
     fetchRequest(e.target[0].value, false);
     changeImageQuality.classList.add('hd');
@@ -150,12 +105,12 @@ displayDetails.addEventListener('click', e =>{
     }
 })
 
-changeImageQuality.addEventListener('click', ()=> qualityChange())
+
 
 
 
 let store = () => {
-    console.log(image.alt);
+    console.log(`Storing item ${image.alt}`);
     let objectStore = (type =="image")? "imageSaved": "videoSaved";
     if(!(image.alt =='placeholder image') || type =="video"){
         let transaction = db.transaction(`${objectStore}`,'readwrite');
@@ -191,6 +146,7 @@ deleteImage.addEventListener('click', (e) => {
     request.onerror = () => console.log(`${type} could not be removed from the store ${request.error}`);
 })
 
+fetchRequest(nasaPhotoDate, true);
 
 function callback(){
     let saved = document.querySelector('#saveImage');

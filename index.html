@@ -10,97 +10,10 @@
 </head>
 <body>
   
-    <div class="container" onclick="changeNav(this)">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-    </div> 
-    <div id="nav">
-        <svg id="navMorph" width="100%" height="100%" viewBox="0 0 1500 1000" preserveAspectRatio="none">
-            <path class="navBackground" d="M1500 34V0H1465V15.1845V34H1481.87H1500Z" fill="#FFF">
-        </svg>
-<!--d="M1.5 5C3.22227 -1 -4.50063 -1.72067 14.4997 -1.72067L25.5004 -1.72067V15.5C25.5004 15.5 21.5003 16.1364 18.5003 12.5C15.5003 8.86364 7.24944 12.0618 6.00004 10.5C4.00003 8.00002 -0.222276 11 1.5 5Z" fill="#FFF">-->
-        <nav id="menu">
-            <img src="" alt="Logo">
-            <a href="">Home</a>
-            <a href="asteroid.html">Daily Asteroids</a>
-            <a href="#nasaPhotoDate">Nasa Photos</a>
-            <a href="savedImages.html">Saved Images</a>
-        </nav>
-    </div>
-    
-    <!-- <div class="background">
-        <div class="Space">
-            <svg width="100%" height="1000" viewBox="0 0 1500 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="Surface Book - 1" clip-path="url(#clip0)">
-                <g id="meteors">
-                <path id="Vector" opacity="0.8" d="M1418.13 600.334L1460.42 554.699L1502.7 509.064L1526.57 483.302C1527.89 481.877 1525.85 479.653 1524.53 481.078L1482.25 526.714L1439.96 572.349L1416.09 598.111C1414.77 599.536 1416.81 601.759 1418.13 600.334Z" fill="url(#paint0_linear)"/>
-                <path id="Vector_2" opacity="0.8" d="M93.9725 386.235L178.544 294.964L263.115 203.694L310.857 152.171C313.498 149.32 309.422 144.872 306.781 147.723L222.209 238.993L137.638 330.264L89.8963 381.787C87.2548 384.638 91.331 389.085 93.9725 386.235V386.235Z" fill="url(#paint1_linear)"/>
-                <path id="Vector_3" opacity="0.8" d="M-23.9849 219.002L27.7167 154.579L79.4183 90.1549L108.605 53.7867C110.22 51.7744 107.727 48.6352 106.113 50.6474L54.4111 115.071L2.70956 179.495L-26.4768 215.863C-28.0917 217.875 -25.5997 221.014 -23.9849 219.002V219.002Z" fill="url(#paint2_linear)"/>
-                <path id="Vector_4" opacity="0.8" d="M1256.61 556.938L1298.9 511.303L1341.19 465.668L1365.06 439.906C1366.38 438.481 1364.34 436.257 1363.02 437.683L1320.73 483.318L1278.45 528.953L1254.58 554.715C1253.26 556.14 1255.29 558.363 1256.61 556.938Z" fill="url(#paint3_linear)"/>
-                <path id="Vector_5" opacity="0.8" d="M764.109 893.403L831.262 834.033L898.414 774.662L936.323 741.146C938.42 739.292 935.184 736.399 933.086 738.253L865.934 797.624L798.781 856.995L760.872 890.511C758.775 892.365 762.012 895.258 764.109 893.403Z" fill="url(#paint4_linear)"/>
-                <path id="Vector_6" opacity="0.8" d="M354.831 592.971L421.984 533.6L489.137 474.229L527.046 440.714C529.142 438.859 525.905 435.966 523.809 437.821L456.656 497.191L389.503 556.562L351.595 590.078C349.497 591.932 352.734 594.826 354.831 592.971Z" fill="url(#paint5_linear)"/>
-                </g>
-                <g id="Moon-parts">
-                <g id="Moon">
-                <path id="moonShape" d="M1404.58 213.385C1441.13 213.385 1470.77 183.75 1470.77 147.193C1470.77 110.635 1441.13 81 1404.58 81C1368.02 81 1338.38 110.635 1338.38 147.193C1338.38 183.75 1368.02 213.385 1404.58 213.385Z" fill="white"/>
-                <path id="moonhole4" d="M1376.86 171.01C1386.45 171.01 1394.23 163.236 1394.23 153.648C1394.23 144.059 1386.45 136.286 1376.86 136.286C1367.28 136.286 1359.5 144.059 1359.5 153.648C1359.5 163.236 1367.28 171.01 1376.86 171.01Z" fill="#E6E6E6"/>
-                <path id="moonHole3" d="M1396.4 110.243C1400.59 110.243 1403.99 106.842 1403.99 102.647C1403.99 98.4516 1400.59 95.0508 1396.4 95.0508C1392.2 95.0508 1388.8 98.4516 1388.8 102.647C1388.8 106.842 1392.2 110.243 1396.4 110.243Z" fill="#E6E6E6"/>
-                <path id="moonHole2" d="M1409.42 186.201C1413.61 186.201 1417.01 182.8 1417.01 178.605C1417.01 174.41 1413.61 171.01 1409.42 171.01C1405.22 171.01 1401.82 174.41 1401.82 178.605C1401.82 182.8 1405.22 186.201 1409.42 186.201Z" fill="#E6E6E6"/>
-                <path id="moonHole1" d="M1438.72 141.711C1441.71 141.711 1444.14 139.282 1444.14 136.286C1444.14 133.289 1441.71 130.86 1438.72 130.86C1435.72 130.86 1433.29 133.289 1433.29 136.286C1433.29 139.282 1435.72 141.711 1438.72 141.711Z" fill="#E6E6E6"/>
-                </g>
-                <g id="moon shadow">
-                <path id="darkMoonShape" d="M1260.19 213.385C1296.75 213.385 1326.38 183.75 1326.38 147.193C1326.38 110.635 1296.75 81 1260.19 81C1223.64 81 1194 110.635 1194 147.193C1194 183.75 1223.64 213.385 1260.19 213.385Z" fill="#3F3D56"/>
-                </g>
-                </g>
-                </g>
-                <defs>
-                <linearGradient id="paint0_linear" x1="1415.66" y1="480.62" x2="1593.64" y2="480.62" gradientUnits="userSpaceOnUse">
-                <stop stop-color="white"/>
-                <stop offset="1" stop-color="white" stop-opacity="0"/>
-                </linearGradient>
-                <linearGradient id="paint1_linear" x1="11.4189" y1="350.432" x2="210.908" y2="180.896" gradientUnits="userSpaceOnUse">
-                <stop stop-color="white"/>
-                <stop offset="0.5625" stop-color="white" stop-opacity="0"/>
-                </linearGradient>
-                <linearGradient id="paint2_linear" x1="-27" y1="134.825" x2="109.128" y2="134.825" gradientUnits="userSpaceOnUse">
-                <stop stop-color="white"/>
-                <stop offset="0.177083" stop-color="white" stop-opacity="0.3"/>
-                </linearGradient>
-                <linearGradient id="paint3_linear" x1="1202.4" y1="437.224" x2="1406.26" y2="437.224" gradientUnits="userSpaceOnUse">
-                <stop stop-color="white"/>
-                <stop offset="0.267308" stop-color="white" stop-opacity="0.610714"/>
-                <stop offset="1" stop-color="white" stop-opacity="0"/>
-                </linearGradient>
-                <linearGradient id="paint4_linear" x1="760.193" y1="815.828" x2="937.003" y2="815.828" gradientUnits="userSpaceOnUse">
-                <stop stop-color="white"/>
-                <stop offset="0.177083" stop-color="white" stop-opacity="0.3"/>
-                </linearGradient>
-                <linearGradient id="paint5_linear" x1="350.915" y1="515.396" x2="527.724" y2="515.396" gradientUnits="userSpaceOnUse">
-                <stop stop-color="white"/>
-                <stop offset="0.177083" stop-color="white" stop-opacity="0.3"/>
-                </linearGradient>
-                <clipPath id="clip0">
-                <rect width="1500" height="1000" fill="white"/>
-                </clipPath>
-                </defs>
-                </svg>
-                
-                            
-        </div> -->
-
-        <!-- <h1>Daily Asteroids NASA Api</h1> -->
-        <!-- <div class="APODButton">
-            <p>Click to view NASA's Daily Picture</p>
-        </div>
-        <div class="dailyAsteroids">
-            <p>Click to view Nasa's daily Asteroids</p>
-        </div> -->
-    <!-- </div> -->
-   
     <div class="NASAAPOD">
         <div class ="title">
-        <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3>  
+        <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3> 
+         
         <form>
             <label id="time"for="inputDate">
                 <p>Search a new date: </p>
@@ -108,7 +21,10 @@
                 <input  type="submit">
             </label>
         </form>
-            
+         <nav id = "tabs">
+            <button>Image Gallery</button>
+            <button><a href="index.html">Daily Asteroids</a></button>
+        </nav>   
         </div>
          
         <div class="daily-image">
