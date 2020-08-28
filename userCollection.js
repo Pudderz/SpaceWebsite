@@ -15,7 +15,7 @@ let modalQualityChange = document.getElementById('qualityChange');
 let imageCollection = document.querySelector('#imageCollection');
 let videoCollection = document.querySelector('#videoCollection');
 let asteroidCollection = document.querySelector('#asteroidCollection');
-let presetImages = document.querySelector('#imagePreset')
+let presetImages = document.querySelector('#imagePreset');
 console.log(modalQualityChange.textContent);
 let createImages = photoCollection =>{
     if(photoCollection.length == 0){
@@ -258,6 +258,7 @@ ol.addEventListener('click', e  => {
 
 //Video Collection
 function displayVideo(content){
+    let fragment = new DocumentFragment();
     let videoList = document.querySelector('#videoList')
     content.forEach((e, index)=>{
         let {title: videoTitle, date: videoDate, 
@@ -268,17 +269,23 @@ function displayVideo(content){
         iframeDate.textContent = videoDate;
         let iframeDetails = document.createElement('p');
         iframeDetails.textContent = videoDetails;
+
         let iframe = document.createElement('iframe');
+        iframe.setAttribute('loading', 'lazy');
+        iframe.src = url;
+        iframe.title = videoTitle;
+
         let iframeDiv = document.createElement('div');
         iframeDiv.classList.add('iframeDiv');
+
         let deleteButton = document.createElement('button');
         deleteButton.classList.add('deleteVideo');
         deleteButton.textContent = "Remove Video From Collection";
+
         let videoDetailsButton = document.createElement('button');
         videoDetailsButton.classList.add('videoDetails');
         videoDetailsButton.textContent = "Details";    
-        iframe.src = url;
-        iframe.title = videoTitle;
+        
         let li = document.createElement('li');
         li.appendChild(iframeTitle);
         li.appendChild(iframeDate);
@@ -287,7 +294,8 @@ function displayVideo(content){
         li.appendChild(videoDetailsButton);
         li.appendChild(deleteButton);
         li.appendChild(iframeDetails);
-        videoList.appendChild(li);
+        fragment.appendChild(li);
+        videoList.appendChild(fragment);
 
     });
     
@@ -301,9 +309,13 @@ function callback(){
         searchImages();
     });
     getCollection('videoSaved', (result)=>{
-        console.log('videos saved');
+        console.log('videos loaded');
         displayVideo(result);
     });
+    getCollection('asteroidsSaved', (result)=>{
+        console.log('asteroids loaded');
+        displayAsteroids(result);
+    })
     
 };
 
