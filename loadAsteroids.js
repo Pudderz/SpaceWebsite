@@ -20,7 +20,7 @@ let displayAsteroids = data =>{
         ul.appendChild(asteroidNumber);
 
         let array = data[date];
-        array.forEach(e=>{
+        array.forEach(e => {
             let content = document.createElement('li');
 
             let detailInput = document.createElement('button');

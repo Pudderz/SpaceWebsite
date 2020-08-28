@@ -11,7 +11,11 @@ let search = document.querySelector('#search-bar');
 let remove = document.querySelector('#remove')
 let modalRemoveButton = document.getElementById("delete");
 let db;
-let modalQualityChange = document.getElementById('qualityChange')
+let modalQualityChange = document.getElementById('qualityChange');
+let imageCollection = document.querySelector('#imageCollection');
+let videoCollection = document.querySelector('#videoCollection');
+let asteroidCollection = document.querySelector('#asteroidCollection');
+let presetImages = document.querySelector('#imagePreset')
 console.log(modalQualityChange.textContent);
 let createImages = photoCollection =>{
     if(photoCollection.length == 0){
@@ -58,7 +62,26 @@ let searchImages = () =>{
 
 let tabs = document.querySelector('#tabs');
 tabs.addEventListener('click', e=>{
-    console.log(e.target);
+    presetImages.style.display = "none";
+    imageCollection.style.display = "none";
+    asteroidCollection.style.display = "none";
+    videoCollection.style.display = "none";
+    console.log(e.target.id)
+    switch(e.target.id){
+        case "imageCollectionTitle":
+            imageCollection.style.display = "block";
+            break;
+        case "asteroidCollectionTitle":
+            asteroidCollection.style.display = "block";
+            break;
+        case "presetCollectionTitle":
+            presetImages.style.display = "block";
+            break;
+        case "videoCollectionTitle":
+            videoCollection.style.display = "block";
+    }
+
+
 });
 
 let removeObjectStoreItem = (itemName, itemLocation, storeName) => {
