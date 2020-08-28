@@ -42,7 +42,7 @@ let displayAsteroids = data =>{
 
         array.forEach(e => {
             let content = document.createElement('li');
-
+            content.classList.add(date);
             let header = document.createElement('h3');
             header.textContent = e.name;
             header.classList.add('name');
@@ -105,20 +105,19 @@ let displayAsteroids = data =>{
 
 function callback(){
     var saveAsteroid = element => {
-        console.log(element.childNodes);
         let date = document.querySelector('#photoDate')
         let transaction = db.transaction(`asteroidsSaved`,'readwrite');
         let items = transaction.objectStore(`asteroidsSaved`);
         let item = {
             title: element.childNodes[0].textContent,
             id:element.childNodes[1].attributes['id'].value,
-            date: date.textContent,
-            diameterMin: element.childNodes[1].childNodes[4].attributes[0].value,
-            diameterMax: element.childNodes[1].childNodes[4].attributes[2].value,
-            absolute_magnitude_h:element.childNodes[1].childNodes[0].attributes[1].value,
-            close_approach_data:element.childNodes[1].childNodes[2].attributes[1].value,
-            speed:element.childNodes[1].childNodes[3].attributes[0].value,
-            url:element.childNodes[1].childNodes[5].href,
+            date: element.className,
+            diameterMin: element.childNodes[1].childNodes[3].attributes[0].value,
+            diameterMax: element.childNodes[1].childNodes[3].attributes[1].value,
+            absolute_magnitude_h:element.childNodes[1].childNodes[0].attributes[0].nodeValue,
+            close_approach_data:element.childNodes[1].childNodes[1].attributes[0].value,
+            speed:element.childNodes[1].childNodes[2].attributes[0].value,
+            url:element.childNodes[1].childNodes[4].href,
         }
         let request = items.add(item, element.childNodes[0].textContent);
 

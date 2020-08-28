@@ -8,14 +8,14 @@
 </head>
 <body>
     <nav id = "tabs">
-            <button id = "imageCollectionTitle">Image Collection</button>
+            <button class = "selected" id = "imageCollectionTitle">Image Collection</button>
             <button id = "asteroidCollectionTitle">Asteroid Collection</button>
             <button id = "presetCollectionTitle">Preset Image Collection</button>
             <button id = "videoCollectionTitle">Video Collection</button>
-            <button><a href="index.html">Go Home</a></button>
+            <a href="index.html">Go Home</a>
     </nav>
     
-    <div id = "imageCollection">
+    <div  id = "imageCollection">
         <input type="search" id="search-bar" placeholder="Search images">
         <button id="remove">Remove an image</button>
         <ul class="collection"></ul>
@@ -40,8 +40,9 @@
     </div>
     
     <div id = "asteroidCollection">
+        <input type="search" id="searchAsteroid" placeholder="Search Asteroid">
         <div>
-            <ol id="Asteroid List"></ol>  
+            <ol id="asteroidList"></ol>  
         </div>
     </div>
     <div id="videoCollection">

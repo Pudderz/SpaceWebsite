@@ -7,7 +7,8 @@ let title = document.getElementById('imageTitle');
 let date = document.getElementById('imageDate');
 let modalClose = document.querySelector('.close');
 let modalFullscreen = document.querySelector('#fullscreen');
-let search = document.querySelector('#search-bar');
+let imageSearch = document.querySelector('#search-bar');
+let asteroidSearch = document.querySelector('#searchAsteroid')
 let remove = document.querySelector('#remove')
 let modalRemoveButton = document.getElementById("delete");
 let db;
@@ -48,7 +49,7 @@ function getCollection(storeName, callback){
 
 let searchImages = () =>{
     let imageList = document.querySelectorAll('.searchResult');
-        search.addEventListener('keydown', (element) =>{
+        imageSearch.addEventListener('keydown', (element) =>{
             imageList.forEach(image => {
                 if(!(image.alt.toLowerCase().includes(element.target.value.toLowerCase()))){
                     image.parentElement.style.display="none"
@@ -62,6 +63,9 @@ let searchImages = () =>{
 
 let tabs = document.querySelector('#tabs');
 tabs.addEventListener('click', e=>{
+    let selectedCollection = document.querySelector('.selected')
+    selectedCollection.classList.remove('selected');
+    e.target.classList.add('selected');
     presetImages.style.display = "none";
     imageCollection.style.display = "none";
     asteroidCollection.style.display = "none";
@@ -195,11 +199,26 @@ modalFullscreen.addEventListener('click', e => {
 console.log(modalQualityChange);
 
 //Asteroid Gallery section
+
+let searchAsteroids = () =>{
+    let asteroidList = document.querySelectorAll('.asteroidSearchResult');
+    asteroidSearch.addEventListener('keyup', element =>{
+        asteroidList.forEach(asteroid => {
+            if(!(asteroid.attributes['id'].value.toLowerCase().includes(element.target.value.toLowerCase()))){
+                asteroid.style.display="none";
+            }else{
+                asteroid.style.display="block";
+            }
+        })
+    });
+};
+
 let ol = document.querySelector('ol');
 let displayAsteroids = data =>{
         data.forEach( e => {
             let content = document.createElement('li');
-
+            content.setAttribute('id', e.title);
+            content.classList.add('asteroidSearchResult');
             let detailInput = document.createElement('button');
             detailInput.classList.add("details");
             detailInput.textContent = "more details";
@@ -212,8 +231,8 @@ let displayAsteroids = data =>{
             let details = document.createElement('div');
             details.classList.add("information");
             details.setAttribute('id', e.id);
-            details.innerHTML = `<p class="size"> Size:${e.absolute_magnitude_h}</p>
-            <p class="approachDate">Close approach date: ${e.close_approach_Date}</p>`;
+            details.innerHTML = `<p class="size"> Absolute magnitude(h):${e.absolute_magnitude_h}</p>
+            <p class="approachDate">Close approach date: ${e.close_approach_data}</p>`;
             
             content.innerHTML = `<h4 class="name">${e.title}</h4>`;
 
@@ -240,15 +259,27 @@ let displayAsteroids = data =>{
             ol.appendChild(content);
         });
 
-    
+    searchAsteroids();
 };
 
 ol.addEventListener('click', e  => {
     if(e.target.classList.contains('removeAsteroid')){
         removeObjectStoreItem(e.target.parentElement.childNodes[0].textContent, e.target.parentElement, 'asteroidsSaved');
+    } else if(e.target.classList.contains('details')){
+        e.target.parentElement.childNodes[1].classList.toggle('showing')
+        if(e.target.parentElement.childNodes[1].classList.contains('showing')){
+            e.target.parentElement.childNodes[1].style.display="block";
+            e.target.textContent = "Hide Details"
+        } else{
+            e.target.parentElement.childNodes[1].style.display="none";
+            e.target.textContent = "Show Details";
+        }
+        
     }
 
 })
+
+
 
 
 //Preset collection
@@ -295,14 +326,14 @@ function displayVideo(content){
         li.appendChild(deleteButton);
         li.appendChild(iframeDetails);
         fragment.appendChild(li);
-        videoList.appendChild(fragment);
+        
 
     });
-    
+    videoList.appendChild(fragment);
 }
 //Get Collections
 
-
+//Runs as soon as indexedDb has finished setting up
 function callback(){
     getCollection('imageSaved', (result)=>{
         createImages(result);
