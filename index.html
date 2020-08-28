@@ -22,8 +22,8 @@
             </label>
         </form>
          <nav id = "tabs">
-            <button>Image Gallery</button>
-            <button><a href="index.html">Daily Asteroids</a></button>
+            <a href="savedImages.html">Image Gallery</a>
+            <a href="asteroid.html">Daily Asteroids</a>
         </nav>   
         </div>
          
@@ -39,7 +39,6 @@
             
             <div id="choice">
                 <button id="changeQuality">HD version</button>
-                <button><a id="galleryLink" href="savedImages.html">My Collection</a></button>
                 <button id="saveImage"> Save to Gallery</button>
                 <button id="DeleteImage">Remove from my Gallery</button>
                 <button id="displayDetails">Photo Details</button>
@@ -47,15 +46,11 @@
             <div id="photoDetails">
                 <h4>Photo Details:</h4>
                 <p id ="details"></p>    
-                <button>
-                    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer'>More Details</a>
-                </button>
-                    
+                
+                    <a href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer'>Link to NASA's APOD website</a>
+
             </div>
-        
-        </div>
-        
-        
+        </div> 
     </div>
     <!-- <div>
             <h3>Differences</h3>
@@ -72,7 +67,6 @@
             <img src="" alt="Github profile Link">
         </a>
     </footer>     -->
-    <script src="node_modules/animejs/lib/anime.min.js"></script>
     <script src="indexedDB.js"></script>
     <script src="sandbox.js" type="text/javascript"></script>
 </body>

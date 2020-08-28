@@ -27,7 +27,20 @@ body{
     height: 50%;
 }
 
-nav{
-    width: auto;
-    top: 0%;
+
+
+#tabs a, #photoDetails a{
+    border-style: outset;
+    border-radius: 5%;
+    box-sizing: border-box;
+    cursor:pointer;    
+    color:black;
+    background-color: #EEEEEE;
+    appearance: button;
+    width: 100%;
+    text-align:center;
+    text-decoration: none;
+    border-color: white;
+    margin:2px;
 }
+
