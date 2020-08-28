@@ -66,7 +66,6 @@ tabs.addEventListener('click', e=>{
     imageCollection.style.display = "none";
     asteroidCollection.style.display = "none";
     videoCollection.style.display = "none";
-    console.log(e.target.id)
     switch(e.target.id){
         case "imageCollectionTitle":
             imageCollection.style.display = "block";
@@ -80,8 +79,6 @@ tabs.addEventListener('click', e=>{
         case "videoCollectionTitle":
             videoCollection.style.display = "block";
     }
-
-
 });
 
 let removeObjectStoreItem = (itemName, itemLocation, storeName) => {
@@ -272,16 +269,28 @@ function displayVideo(content){
         let iframeDetails = document.createElement('p');
         iframeDetails.textContent = videoDetails;
         let iframe = document.createElement('iframe');
+        let iframeDiv = document.createElement('div');
+        iframeDiv.classList.add('iframeDiv');
+        let deleteButton = document.createElement('button');
+        deleteButton.classList.add('deleteVideo');
+        deleteButton.textContent = "Remove Video From Collection";
+        let videoDetailsButton = document.createElement('button');
+        videoDetailsButton.classList.add('videoDetails');
+        videoDetailsButton.textContent = "Details";    
         iframe.src = url;
         iframe.title = videoTitle;
         let li = document.createElement('li');
         li.appendChild(iframeTitle);
         li.appendChild(iframeDate);
-        li.appendChild(iframe);
+        iframeDiv.appendChild(iframe)
+        li.appendChild(iframeDiv);
+        li.appendChild(videoDetailsButton);
+        li.appendChild(deleteButton);
         li.appendChild(iframeDetails);
         videoList.appendChild(li);
 
     });
+    
 }
 //Get Collections
 
@@ -292,8 +301,21 @@ function callback(){
         searchImages();
     });
     getCollection('videoSaved', (result)=>{
-    console.log('videos saved');
-    displayVideo(result);
+        console.log('videos saved');
+        displayVideo(result);
     });
     
 };
+
+videoCollection.addEventListener('click', e=>{
+    if(e.target.classList.contains('deleteVideo')){
+        removeObjectStoreItem(e.target.parentElement.childNodes[2].childNodes[0].title, e.target.parentElement, 'videoSaved');
+    } else if(e.target.classList.contains('videoDetails')){
+        e.target.parentElement.childNodes[5].classList.toggle('show') 
+        if(e.target.parentElement.childNodes[5].classList.contains('show')){
+            e.target.parentElement.childNodes[5].style.display = "block";
+        }else{
+            e.target.parentElement.childNodes[5].style.display = "none";
+        }
+    }
+})
