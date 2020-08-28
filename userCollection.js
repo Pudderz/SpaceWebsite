@@ -1,5 +1,5 @@
-let collection = document.querySelector('.collection');
-let allImage = document.querySelector('ul'); 
+let collection = document.querySelector('.collection'); 
+let presetCollection = document.querySelector('.presetCollection')
 let modal = document.querySelector('#modalDiv');
 let modalImg = document.querySelector('#modalImg');
 let details = document.querySelector('#information');
@@ -18,7 +18,8 @@ let videoCollection = document.querySelector('#videoCollection');
 let asteroidCollection = document.querySelector('#asteroidCollection');
 let presetImages = document.querySelector('#imagePreset');
 console.log(modalQualityChange.textContent);
-let createImages = photoCollection =>{
+
+let createImages = (photoCollection, location) =>{
     if(photoCollection.length == 0){
         collection.innerHTML = '<p>You have no images in your collection</p>';
     } else{
@@ -30,7 +31,7 @@ let createImages = photoCollection =>{
             image.loading = 'lazy';
             image.classList.add('searchResult');
             li.appendChild(image);
-            collection.appendChild(li);
+            location.appendChild(li);
         });
     }   
 } 
@@ -336,7 +337,7 @@ function displayVideo(content){
 //Runs as soon as indexedDb has finished setting up
 function callback(){
     getCollection('imageSaved', (result)=>{
-        createImages(result);
+        createImages(result, collection);
         searchImages();
     });
     getCollection('videoSaved', (result)=>{
@@ -347,6 +348,11 @@ function callback(){
         console.log('asteroids loaded');
         displayAsteroids(result);
     })
+    //presetImages
+    getCollection('presetImages', (result)=>{
+        createImages(result, presetCollection);
+    });
+
     
 };
 
