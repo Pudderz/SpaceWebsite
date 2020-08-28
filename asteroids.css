@@ -18,9 +18,46 @@ body{
 }
 
 li{
-    box-shadow: 0px 0px 10px 2px #1f4068;
-    margin:auto;
     background-color: #1f4068;
-    width: 50%;
+    text-align: center;
+    margin: 20px;
+    list-style: none;
+    list-style-position:inside;
+    margin-left:0px
+}
+
+a{
+    border-style: outset;
+    border-radius: 5%;
+    box-sizing: border-box;
+    cursor:pointer;    
+    color:black;
+    background-color: #EEEEEE;
+    appearance: button;
+    text-align:center;
+    text-decoration: none;
+    border-color: white;
+    margin:2px;
+}
+#links a{
+    width:100%;
+}
+
+ul{
+    display:flex;
+    flex-flow: wrap;
+    list-style: none;
+    padding-left:20px
+}
+
+h3, h4{
+    width: 100%;
     
+}
+nav{
+    position: sticky;
+    top:0;
+    display: flex;
+    justify-content: space-between;
+    background-color:#1f4068;
 }

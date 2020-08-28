@@ -7,82 +7,104 @@ let endDate = '';
 let information = document.getElementById('list');
 
 
+
+var save = document.createElement('button');
+save.classList.add('save');
+save.textContent = "save to collection";
+var remove = document.createElement('button');
+remove.classList.add('remove');
+remove.textContent = "remove from collection";
+var item = document.createElement('p');
+item.textContent = "loading";
+var detailInput = document.createElement('button');
+detailInput.classList.add("details");
+detailInput.textContent = "more details";
+
+
+
 let displayAsteroids = data =>{
+    let fragment = new DocumentFragment();
     console.log(data);
+    let loading = item.cloneNode(true);
+    fragment.appendChild(loading);
+    observer.observe(loading);
     
     for(date in data){
         
         let newDate = document.createElement('h3');
         newDate.textContent = date;
-        ul.appendChild(newDate);
+        fragment.appendChild(newDate);
         let asteroidNumber = document.createElement('h4');
-        asteroidNumber.textContent = `There will be ${data[date].length} asteroids today`;
-        ul.appendChild(asteroidNumber);
-
+        asteroidNumber.textContent = `${data[date].length} Asteroids Passing Today`;
+        fragment.appendChild(asteroidNumber);
+        
         let array = data[date];
+
         array.forEach(e => {
             let content = document.createElement('li');
 
-            let detailInput = document.createElement('button');
-            detailInput.classList.add("details");
-            detailInput.textContent = "more details";
-            detailInput.id = e.id;
-
-            let save = document.createElement('button');
-            save.classList.add('save');
-            save.textContent = "save to collection";
-
-            let remove = document.createElement('button');
-            remove.classList.add('remove');
-            remove.textContent = "remove from collection";
+            let header = document.createElement('h3');
+            header.textContent = e.name;
+            header.classList.add('name');
+            content.appendChild(header);
 
             let details = document.createElement('div');
             details.classList.add("information");
             details.setAttribute('id', e.id);
-            let approachDate = e.close_approach_data[0].close_approach_date_full;
-            details.innerHTML = `<p class="size" data-size="${e.absolute_magnitude_h}">Size:${e.absolute_magnitude_h}</p>
-            <p class="approachDate" data-type="${approachDate}">Close approach date: ${approachDate}</p>`;
             
-            content.innerHTML = `<h4 class="name">${e.name}</h4>`;
+            
+            let info = document.createElement('p');
+            info.textContent = e.absolute_magnitude_h;
+            info.setAttribute('data-size',e.absolute_magnitude_h);
+            info.classList.add('size');
+            details.appendChild(info);
+
+            let approachDate = e.close_approach_data[0].close_approach_date_full;
+            let closeAppoachDate = document.createElement('p');
+            closeAppoachDate.textContent = approachDate;
+            closeAppoachDate.setAttribute('data-type', approachDate);
+            closeAppoachDate.classList.add('approachDate');
+            details.appendChild(closeAppoachDate)
+            
+            let speed = document.createElement('p');
+            speed.textContent = `Speed: ${e.close_approach_data[0].relative_velocity.miles_per_hour}mph`;
+            speed.setAttribute('data-speed', e.close_approach_data[0].relative_velocity.miles_per_hour );
+            speed.classList.add('speed');
+            details.appendChild(speed);
 
             let diameter = document.createElement('p');
             diameter.textContent = `Estimated diameter in meters: Min:${e.estimated_diameter.meters.estimated_diameter_min} Max:${e.estimated_diameter.meters.estimated_diameter_max} `
             diameter.setAttribute('data-min',e.estimated_diameter.meters.estimated_diameter_min);
             diameter.setAttribute('data-max', e.estimated_diameter.meters.estimated_diameter_max);
             diameter.classList.add('diameter');
+            details.appendChild(diameter);
 
             let url = document.createElement('a');
             url.classList.add('url');
             url.href= `${e.nasa_jpl_url}`;
             url.textContent= "More Details...";
             url.target = "_blank";
-
-            let speed = document.createElement('p');
-            speed.textContent = `Speed: ${e.close_approach_data[0].relative_velocity.miles_per_hour}mph`;
-            speed.setAttribute('data-speed', e.close_approach_data[0].relative_velocity.miles_per_hour );
-            speed.classList.add('speed');
-
-            details.appendChild(speed)
-            details.appendChild(diameter);
             details.appendChild(url);
+
+
+            let saveItem = save.cloneNode(true);
+            let removeItem = remove.cloneNode(true);
+            let moreDetails = detailInput.cloneNode(true);
+            moreDetails.setAttribute('id', e.id);
+
             content.appendChild(details);
-            content.appendChild(detailInput);
-            content.appendChild(save);
-            content.appendChild(remove);
-            ul.appendChild(content);
+            content.appendChild(moreDetails);
+            content.appendChild(saveItem);
+            content.appendChild(removeItem);
+            fragment.appendChild(content);
         });
+
     }
-    let item = document.createElement('p');
-    item.textContent = "loading";
-    item.classList.add("loadMore");
-    
-    
-    ul.appendChild(item);
-    observer.observe(item);
+    ul.appendChild(fragment);
 };
 
 function callback(){
-    let saveAsteroid = element => {
+    var saveAsteroid = element => {
         console.log(element.childNodes);
         let date = document.querySelector('#photoDate')
         let transaction = db.transaction(`asteroidsSaved`,'readwrite');
@@ -107,7 +129,7 @@ function callback(){
             console.log('item could not be added to the store', request.error)
         }
     };
-    let removeAsteroid = key =>{
+    var removeAsteroid = key =>{
         console.log(key);
         let transaction = db.transaction(`asteroidsSaved`, 'readwrite');
         let items = transaction.objectStore('asteroidsSaved');
@@ -166,17 +188,15 @@ let fetchAsteroids = async(start,end) =>{
 let i = 0;
 getDate(i);
 fetchAsteroids(startDate, endDate);
-i+=2;
+
 let observer = new IntersectionObserver((entries) => {
     if (entries[0].intersectionRatio > 0) {
         console.log(entries);
         observer.unobserve(entries[0].target);
-        entries[0].target.classList.remove('loadMore');
         i+=2;
         getDate(i);
         fetchAsteroids(startDate, endDate);
+        entries[0].target.style.display = "none";
     }
-},{
-    root:null,
-    threshold:1});
+},{});
     
