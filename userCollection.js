@@ -21,7 +21,7 @@ console.log(modalQualityChange.textContent);
 
 let createImages = (photoCollection, location) =>{
     if(photoCollection.length == 0){
-        collection.innerHTML = '<p>You have no images in your collection</p>';
+        location.innerHTML = '<p>You have no images in your collection</p>';
     } else{
         photoCollection.forEach(element => {
             let image = document.createElement('img');

@@ -80,6 +80,7 @@ body{
 }
 #modalDiv{
     color: white;
+    overflow:auto;
 }
 
 .close{
@@ -113,8 +114,7 @@ body{
   border-bottom: 1px solid white;
 }
 #details{
-  overflow:auto;
-  height:30%;
+  overflow:visible;
   width:100%;
 }
 /* clears the 'X' from Internet Explorer */
