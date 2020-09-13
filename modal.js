@@ -35,7 +35,6 @@ presetCollection.addEventListener('click', e=>createModal(e, 'presetImages'))
 usersCollection.addEventListener('click', e=>createModal(e, 'imageSaved'));
 
 
-
 remove.addEventListener('click',()=> {
     let removePhotos = document.querySelectorAll('.searchResult');
     remove.classList.toggle('removing');

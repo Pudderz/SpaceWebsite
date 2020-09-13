@@ -202,6 +202,10 @@ ol.addEventListener('click', e  => {
 function displayVideo(content){
     let fragment = new DocumentFragment();
     let videoList = document.querySelector('#videoList')
+    if(content.length == 0){
+        let emptyVideo = document.querySelector('#emptyVideoCollection');
+        emptyVideo.style.display = "block";
+    }
     content.forEach((e, index)=>{
         let {title: videoTitle, date: videoDate, 
             explanation: videoDetails, url} = e; 
