@@ -25,26 +25,11 @@
             <button id="remove">Remove an image</button>
         </div>
         <ul class="collection"></ul>
-        <div id="modalDiv" class="modal">
-            <div class ="options">
-                <button class="close" >&times;</button>
-                <button id="delete">Delete image</button>
-                <button id="qualityChange">HD version</button>
-                <button id="fullscreen">Fullscreen</button> 
-                <button id="rotateImage">Rotate</button> 
-            </div>
-            <img id="modalImg" class="rotateImage" src="" alt="placeholder">
-            <div id ="details">
-                <h2 id="imageTitle"></h2>
-                <h3 id ="imageDate"></h3>
-                <p id="information">Information...</p>
-            </div>
-        </div>   
     </div>
 
     <div id= "imagePreset">
         <p>Preset images</p>
-        <ul class="presetCollection"></ul>
+        <ul id="presetCollection"></ul>
     </div>
     
     <div id = "asteroidCollection">
@@ -58,8 +43,24 @@
             <ol id="videoList"></ol>  
         </div>
     </div>
-    
+
+    <div id="modalDiv" class="modal">
+        <div class ="options">
+            <button class="close" >&times;</button>
+            <button id="delete">Delete image</button>
+            <button id="qualityChange">HD version</button>
+            <button id="fullscreen">Fullscreen</button> 
+            <button id="rotateImage">Rotate</button> 
+        </div>
+        <img id="modalImg" class="rotateImage" src="" alt="placeholder">
+        <div id ="details">
+            <h2 id="imageTitle"></h2>
+            <h3 id ="imageDate"></h3>
+            <p id="information">Information...</p>
+        </div>
+    </div>   
     <script src ="userCollection.js"></script>
+    <script src = "modal.js"></script>
     <script src="indexedDB.js"></script>
 </body>
 </html>

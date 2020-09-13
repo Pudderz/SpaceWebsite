@@ -39,6 +39,10 @@ let fetchRequest = async (date, hdBool)=>{
     let parsed = await response.json();
         details.textContent = parsed.explanation;
         console.log(parsed);
+    imageTitle = parsed.title;
+    imageUrl = parsed.url;
+    imageDetails = parsed.explanation;
+    imageDate= date;    
     if(parsed.media_type =="image"){
         photo.style.display = "block";
         changeImageQuality.style.display = "block";
@@ -61,10 +65,7 @@ let fetchRequest = async (date, hdBool)=>{
         imageHdUrl = parsed.url;
         type ="video"
     }  
-    imageTitle = parsed.title;
-    imageUrl = parsed.url;
-    imageDetails = parsed.explanation;
-    imageDate=date;
+    
 }
 
 
@@ -105,8 +106,6 @@ displayDetails.addEventListener('click', e =>{
         e.target.textContent = 'Photo details';
     }
 })
-
-
 
 
 
