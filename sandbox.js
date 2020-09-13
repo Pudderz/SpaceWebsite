@@ -4,7 +4,7 @@ let navButton = document.querySelector('.container');
 let menu = document.querySelector('#menu')
 
 let title = document.querySelector('#header');
-let changeDate = document.querySelector('form');
+let changeDate = document.querySelector('#inputDate');
 let imageTitle ='';
 let imageDetails = '';
 let imageUrl='';
@@ -16,6 +16,8 @@ let changeImageQuality =document.querySelector('#changeQuality');
 let type ="";
 let deleteImage = document.querySelector('#deleteImage');
 let image = document.querySelector('#image');
+let previousDay = document.querySelector('#previousDay');
+let nextDay = document.querySelector('#nextDay');
 
 
 //Get current day to set date.max and start fetching current date image
@@ -24,7 +26,9 @@ let nasaPhotoDate = (() =>{
     let photoDate = document.querySelector('#nasaPhotoDate');
     let inputDate = document.getElementById('inputDate');
     photoDate.textContent = `Nasa's Picture of ${date}`;
-    inputDate.setAttribute('max', date )
+    inputDate.setAttribute('max', date );
+    inputDate.setAttribute('value', date);
+    checkDateButtons(date, false);
     return date;
 })();
 
@@ -54,7 +58,7 @@ let fetchRequest = async (date, hdBool)=>{
         type = "image";
         title.textContent = imageTitle;
     }else if (parsed.media_type =="video"){
-        console.log(parsed.innerHTML);
+        console.log(parsed);
         photo.style.display = "none";
         changeImageQuality.style.display = "none";
         iframe.parentElement.style.display = "block";
@@ -82,12 +86,49 @@ function qualityChange(){
 changeImageQuality.addEventListener('click', ()=> qualityChange());
 
 
-changeDate.addEventListener('submit', e =>{
-    e.preventDefault();
-    fetchRequest(e.target[0].value, false);
+//Changing Date input field on the page and fetching new image
+changeDate.addEventListener('change', e =>{
+    fetchRequest(e.target.value, false);
+    //This is to reset the quality button
     changeImageQuality.classList.add('hd');
     qualityChange();
+    checkDateButtons(changeDate.value, true);
 });
+previousDay.addEventListener('click', ()=>{
+    choosenDay = new Date(changeDate.value);
+    choosenDay.setDate(choosenDay.getDate() - 1);
+    changeDate.value = choosenDay.toISOString().split('T')[0]; 
+    let createChangeEvent = new Event('change');
+    changeDate.dispatchEvent(createChangeEvent);
+});
+
+nextDay.addEventListener('click', e=>{
+    choosenDay = new Date(changeDate.value);
+    choosenDay.setDate(choosenDay.getDate() + 1);
+    changeDate.value = choosenDay.toISOString().split('T')[0];
+    //creates change event
+    let createChangeEvent = new Event('change');
+    changeDate.dispatchEvent(createChangeEvent);
+});
+
+function checkDateButtons(date ,testlower){
+    let currentDate = new Date;
+    let testDate =new Date(date);
+    nextDay.style.display = 
+        (testDate.setDate(testDate.getDate() + 1) > currentDate)?
+        "none": "block";
+    if(testlower){
+        const lowerBound = new Date('1995-06-16');  
+        previousDay.style.display = 
+            (testDate.setDate(testDate.getDate() - 2) < lowerBound)?
+            "none": "block";
+    }
+    
+    
+    
+    
+    
+}
 
 
 displayDetails.addEventListener('click', e =>{

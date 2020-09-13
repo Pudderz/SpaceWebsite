@@ -14,14 +14,18 @@
     <div class="NASAAPOD">
         <div class ="title">
         <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3> 
-         
-        <form>
+        <div id="selectNewDate">
+            
             <label id="time"for="inputDate">
-                <p>Search a new date: </p>
-                <input id="inputDate" type="date" min="1995-06-16" required>
-                <input  type="submit">
+            Search a new date: 
+            <button id="previousDay">Previous Day</button>
+            <input id="inputDate" type="date" min="1995-06-16">
+            <button id="nextDay">Next Day</button>
             </label>
-        </form>
+            
+        </div>
+        
+        
          <nav id = "tabs">
             <a href="savedImages.html">Image Gallery</a>
             <a href="asteroid.html">Daily Asteroids</a>
@@ -31,7 +35,7 @@
         <div class="daily-image">
             <img  id ="image" src="" alt="">  
             <div class="iframeDiv">
-               <iframe id="iframe" title="placeholder iframe for video" allow="fullscreen"></iframe> 
+               <iframe id="iframe" src="" alt="" title="placeholder iframe for video" allow="fullscreen"></iframe> 
             </div>
             
          </div>
@@ -52,22 +56,23 @@
 
             </div>
         </div> 
-        <div id="modalDiv" class="modal">
-            <div class ="options">
-                <button class="close" >&times;</button>
-                <button id="delete">Delete image</button>
-                <button id="qualityChange">HD version</button>
-                <button id="fullscreen">Fullscreen</button> 
-                <button id="rotateImage">Rotate</button> 
-            </div>
-            <img id="modalImg" class="rotateImage" src="" alt="placeholder">
-            <div id ="details">
-                <h2 id="imageTitle"></h2>
-                <h3 id ="imageDate"></h3>
-                <p id="information">Information...</p>
-            </div>
-        </div>   
+        
     </div>
+    <div id="modalDiv" class="modal">
+        <div class ="options">
+            <button class="close" >&times;</button>
+            <button id="delete">Delete image</button>
+            <button id="qualityChange">HD version</button>
+            <button id="fullscreen">Fullscreen</button> 
+            <button id="rotateImage">Rotate</button> 
+        </div>
+        <img id="modalImg" class="rotateImage" src="" alt="placeholder">
+        <div id ="details">
+            <h2 id="imageTitle"></h2>
+            <h3 id ="imageDate"></h3>
+            <p id="information">Information...</p>
+        </div>
+    </div>   
     <!-- <div>
             <h3>Differences</h3>
         </div>
