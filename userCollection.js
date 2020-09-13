@@ -1,22 +1,27 @@
-let collection = document.querySelector('.collection'); 
-let presetCollection = document.querySelector('.presetCollection')
+let root = document.documentElement;
 let modal = document.querySelector('#modalDiv');
 let modalImg = document.querySelector('#modalImg');
-let details = document.querySelector('#information');
-let title = document.getElementById('imageTitle');
-let date = document.getElementById('imageDate');
-let modalClose = document.querySelector('.close');
+let modalDetails = document.querySelector('#information');
+let modalQualityChange = document.getElementById('qualityChange');
 let modalFullscreen = document.querySelector('#fullscreen');
+let modalClose = document.querySelector('.close');
+let modalRotate = document.querySelector('#rotateImage')
+let date = document.getElementById('imageDate');
+let modalRemoveButton = document.getElementById("delete");
+
+let collection = document.querySelector('.collection');
+let presetCollection = document.querySelector('.presetCollection') 
+let title = document.getElementById('imageTitle');
 let imageSearch = document.querySelector('#search-bar');
 let asteroidSearch = document.querySelector('#searchAsteroid')
 let remove = document.querySelector('#remove')
-let modalRemoveButton = document.getElementById("delete");
-let db;
-let modalQualityChange = document.getElementById('qualityChange');
+
 let imageCollection = document.querySelector('#imageCollection');
 let videoCollection = document.querySelector('#videoCollection');
 let asteroidCollection = document.querySelector('#asteroidCollection');
 let presetImages = document.querySelector('#imagePreset');
+
+let db;
 console.log(modalQualityChange.textContent);
 
 let createImages = (photoCollection, location) =>{
@@ -121,7 +126,7 @@ collection.addEventListener('click', e => {
             modalImg.alt = photoDetails.title;
             date.textContent = photoDetails.date;
             title.textContent = photoDetails.title;
-            details.textContent = photoDetails.explanation;
+            modalDetails.textContent = photoDetails.explanation;
             //For changing the quality in modal
             modalImg.setAttribute('data-hdSrc', photoDetails.hdurl);
             modalImg.setAttribute('data-stdSrc', photoDetails.url);
@@ -173,6 +178,24 @@ function ImageQualityChange(reset, element){
     }
 }
 
+let rotationValue = 0;
+//rotates image by 90degrees when clicked
+modalRotate.addEventListener('click', (e)=>{
+    rotationValue = (rotationValue+90)%360; 
+    root.style.setProperty('--rotation-value', rotationValue + "deg");
+    console.log(rotationValue)
+
+    //stretches image to fill whole page when rotated 90 or 180degrees
+    if((rotationValue/90)%2){
+        modalImg.style['max-width'] = "100vh";
+        modalImg.style['max-height']= "100vw";
+    }else{
+        modalImg.style['max-width'] = "100%";
+        modalImg.style['max-height']= "70%";
+    }
+    
+})
+
 modalQualityChange.addEventListener('click', e=>{
    ImageQualityChange(false, e.target);
 })
@@ -183,6 +206,8 @@ modalClose.addEventListener('click',() =>{
 });
 
 
+
+
 modalFullscreen.addEventListener('click', e => {
     console.log('fullscreen clicked')
     console.log(e.target.parentElement.parentElement.childNodes);
@@ -191,10 +216,17 @@ modalFullscreen.addEventListener('click', e => {
     text.classList.toggle('hidden');
     if(text.classList.contains('hidden')){
         text.style.display = "none";
-        img.style['max-height'] = "100%";
+        modalRotate.style.display="block";
+        img.classList.add('positionCenter');
     }else {
         text.style.display = "block";
-        img.style['max-height'] = "70%";
+        modalRotate.style.display="none";
+        img.classList.remove('positionCenter');
+        //resets rotation of image
+        root.style.setProperty('--rotation-value', 0 + "deg");
+        modalImg.style['max-width'] = "100%";
+        modalImg.style['max-height']= "70%";
+
     };
 });
 console.log(modalQualityChange);
@@ -306,6 +338,7 @@ function displayVideo(content){
         iframe.setAttribute('loading', 'lazy');
         iframe.src = url;
         iframe.title = videoTitle;
+        iframe.allowfullscreen = true;
 
         let iframeDiv = document.createElement('div');
         iframeDiv.classList.add('iframeDiv');
