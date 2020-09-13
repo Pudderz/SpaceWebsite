@@ -38,6 +38,7 @@ let fetchRequest = async (date, hdBool)=>{
     });
     let parsed = await response.json();
         details.textContent = parsed.explanation;
+        console.log(parsed);
     if(parsed.media_type =="image"){
         photo.style.display = "block";
         changeImageQuality.style.display = "block";

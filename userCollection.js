@@ -187,11 +187,11 @@ modalRotate.addEventListener('click', (e)=>{
 
     //stretches image to fill whole page when rotated 90 or 180degrees
     if((rotationValue/90)%2){
-        modalImg.style['max-width'] = "100vh";
-        modalImg.style['max-height']= "100vw";
+        modalImg.classList.add('stretchFullscreen')
     }else{
-        modalImg.style['max-width'] = "100%";
-        modalImg.style['max-height']= "70%";
+        modalImg.classList.remove('stretchFullscreen')
+        // modalImg.style['max-width'] = "100%";
+        // modalImg.style['max-height']= "100%";
     }
     
 })
@@ -224,8 +224,7 @@ modalFullscreen.addEventListener('click', e => {
         img.classList.remove('positionCenter');
         //resets rotation of image
         root.style.setProperty('--rotation-value', 0 + "deg");
-        modalImg.style['max-width'] = "100%";
-        modalImg.style['max-height']= "70%";
+        modalImg.classList.remove('stretchFullscreen')
 
     };
 });
@@ -338,7 +337,7 @@ function displayVideo(content){
         iframe.setAttribute('loading', 'lazy');
         iframe.src = url;
         iframe.title = videoTitle;
-        iframe.allowfullscreen = true;
+        iframe.allow="fullscreen"
 
         let iframeDiv = document.createElement('div');
         iframeDiv.classList.add('iframeDiv');

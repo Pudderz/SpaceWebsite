@@ -30,7 +30,7 @@ body{
     vertical-align: middle;
     align-content: center;
     cursor: pointer;
-
+  
   }
 
   ul img:hover{
@@ -196,7 +196,11 @@ iframe{
   display: none;
 }
 #videoList{
-  padding-inline-start: 20px;
+  
+  padding-left: 20px;
+  padding: 10px;
+  list-style: none;
+  margin: 0px;
 }
 
 nav{
@@ -261,7 +265,24 @@ nav{
   bottom: 50%;
   left: -50%;
   right:-50%;
+  max-height: 100% !important;
 }
+
+
+.stretchFullscreen{
+    max-width: 100vh !important;
+    /* max-height: 100vh !important; */
+    min-width: auto !important;
+} 
+
+@media (max-aspect-ratio: 1/1){
+  .stretchFullscreen{
+    max-width: 100vh !important;
+    max-height: 100vw !important;
+    min-width: auto !important;
+  }  
+}
+
 
 .rotateImage {
   -webkit-transform:rotate( var(--rotation-value));
@@ -273,4 +294,8 @@ nav{
 
 #rotateImage{
   display: none;
+}
+
+#search{
+  padding: 10px;
 }
