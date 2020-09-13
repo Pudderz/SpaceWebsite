@@ -16,9 +16,9 @@ openRequest.onerror = () => {
 openRequest.onsuccess = () => {
     db = openRequest.result;
     console.log('db running');
-    console.log(dbInputData)
+    console.log(dbInputData);
+    //Installs Preset Images if needed to make it easier to play around with the gallery with having to waste time picking images
     if(dbInputData){
-        //Installs Preset Images if needed to make it easier to play around with the gallery with having to waste time picking images
         console.log('updating')
         const presetImages = [
             {
@@ -451,7 +451,6 @@ openRequest.onsuccess = () => {
         });
     
     }
-    
     callback();
 };
 

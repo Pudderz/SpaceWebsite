@@ -9,7 +9,7 @@ let modalClose = document.querySelector('.close');
 let modalRotate = document.querySelector('#rotateImage')
 let date = document.getElementById('imageDate');
 let modalRemoveButton = document.getElementById("delete");
-
+let title = document.getElementById('imageTitle');
 
 const createModal =  (e, ObjectStoreName) => {
     if(!e.target.classList.contains('remove') && e.target.localName == "img"){
@@ -126,6 +126,7 @@ modalFullscreen.addEventListener('click', e => {
         img.classList.remove('positionCenter');
         //resets rotation of image
         root.style.setProperty('--rotation-value', 0 + "deg");
+        rotationValue = 0;
         modalImg.classList.remove('stretchFullscreen')
 
     };

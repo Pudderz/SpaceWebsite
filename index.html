@@ -52,6 +52,21 @@
 
             </div>
         </div> 
+        <div id="modalDiv" class="modal">
+            <div class ="options">
+                <button class="close" >&times;</button>
+                <button id="delete">Delete image</button>
+                <button id="qualityChange">HD version</button>
+                <button id="fullscreen">Fullscreen</button> 
+                <button id="rotateImage">Rotate</button> 
+            </div>
+            <img id="modalImg" class="rotateImage" src="" alt="placeholder">
+            <div id ="details">
+                <h2 id="imageTitle"></h2>
+                <h3 id ="imageDate"></h3>
+                <p id="information">Information...</p>
+            </div>
+        </div>   
     </div>
     <!-- <div>
             <h3>Differences</h3>
@@ -70,5 +85,6 @@
     </footer>     -->
     <script src="indexedDB.js"></script>
     <script src="sandbox.js" type="text/javascript"></script>
+    <script src="indexPageModal.js"></script>
 </body>
 </html>

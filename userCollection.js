@@ -2,7 +2,6 @@ let root = document.documentElement;
 
 let collection = document.querySelector('.collection');
 let presetCollection = document.querySelector('#presetCollection') 
-let title = document.getElementById('imageTitle');
 let imageSearch = document.querySelector('#search-bar');
 let asteroidSearch = document.querySelector('#searchAsteroid')
 let remove = document.querySelector('#remove')
