@@ -2,7 +2,7 @@
 let navMorph = document.querySelector('.navBackground');
 let navButton = document.querySelector('.container');
 let menu = document.querySelector('#menu')
-
+let nasaLink = document.getElementById('nasaLink')
 let title = document.querySelector('#header');
 let changeDate = document.querySelector('#inputDate');
 let imageTitle ='';
@@ -86,34 +86,15 @@ function qualityChange(){
 changeImageQuality.addEventListener('click', ()=> qualityChange());
 
 
-//Changing Date input field on the page and fetching new image
-changeDate.addEventListener('change', e =>{
-    fetchRequest(e.target.value, false);
-    //This is to reset the quality button
-    changeImageQuality.classList.add('hd');
-    qualityChange();
-    checkDateButtons(changeDate.value, true);
-});
-previousDay.addEventListener('click', ()=>{
-    choosenDay = new Date(changeDate.value);
-    choosenDay.setDate(choosenDay.getDate() - 1);
-    changeDate.value = choosenDay.toISOString().split('T')[0]; 
-    let createChangeEvent = new Event('change');
-    changeDate.dispatchEvent(createChangeEvent);
-});
 
-nextDay.addEventListener('click', e=>{
-    choosenDay = new Date(changeDate.value);
-    choosenDay.setDate(choosenDay.getDate() + 1);
-    changeDate.value = choosenDay.toISOString().split('T')[0];
-    //creates change event
-    let createChangeEvent = new Event('change');
-    changeDate.dispatchEvent(createChangeEvent);
-});
+
+
+
+//Changing Date input field on the page 
 
 function checkDateButtons(date ,testlower){
     let currentDate = new Date;
-    let testDate =new Date(date);
+    let testDate = new Date(date);
     nextDay.style.display = 
         (testDate.setDate(testDate.getDate() + 1) > currentDate)?
         "none": "block";
@@ -123,12 +104,46 @@ function checkDateButtons(date ,testlower){
             (testDate.setDate(testDate.getDate() - 2) < lowerBound)?
             "none": "block";
     }
-    
-    
-    
-    
-    
 }
+
+function changeNasaLink(date){
+    let linkDate = new Date(date)
+    let month = linkDate.getMonth()+1;
+    if(month.toString().length==1){month = `0${month}`}
+    const day = linkDate.getDate();
+    //year is in a two digit format
+    const regex = /\d\d$/i;
+    let year = linkDate.getFullYear();
+    year = year.toString().match(regex);
+    console.log('the year is '+year)
+    //https://apod.nasa.gov/apod/ap200912.html
+    nasaLink.href = `https://apod.nasa.gov/apod/ap${year}${month}${day}.html`;
+}
+
+changeDate.addEventListener('change', e =>{
+    fetchRequest(e.target.value, false);
+    checkDateButtons(changeDate.value, true);
+    //This is to reset the quality button
+    changeImageQuality.classList.add('hd');
+    qualityChange();
+    changeNasaLink(e.target.value);
+});
+previousDay.addEventListener('click', ()=>{
+    choosenDay = new Date(changeDate.value);
+    choosenDay.setDate(choosenDay.getDate() - 1);
+    changeDate.value = choosenDay.toISOString().split('T')[0]; 
+    let createChangeEvent = new Event('change');
+    changeDate.dispatchEvent(createChangeEvent);
+});
+nextDay.addEventListener('click', e=>{
+    choosenDay = new Date(changeDate.value);
+    choosenDay.setDate(choosenDay.getDate() + 1);
+    changeDate.value = choosenDay.toISOString().split('T')[0];
+    //creates change event
+    let createChangeEvent = new Event('change');
+    changeDate.dispatchEvent(createChangeEvent);
+});
+
 
 
 displayDetails.addEventListener('click', e =>{
