@@ -17,6 +17,7 @@ let db;
 
 
 let createImages = (photoCollection, location) =>{
+    let fragment = document.createDocumentFragment();
     if(photoCollection.length == 0){
         location.innerHTML = '<p>You have no images in your collection</p>';
     } else{
@@ -28,8 +29,15 @@ let createImages = (photoCollection, location) =>{
             image.loading = 'lazy';
             image.classList.add('searchResult');
             li.appendChild(image);
-            location.appendChild(li);
-        });
+            fragment.appendChild(li);
+        }); 
+        //placeholder at the end of the list to stop the last image 
+        //from stretching to fill the entire space
+            let li = document.createElement('li');
+            li.classList.add('placeholderLine');
+        fragment.appendChild(li);
+        location.appendChild(fragment);
+        
     }   
 } 
 

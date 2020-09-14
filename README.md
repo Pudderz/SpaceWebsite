@@ -16,9 +16,9 @@ I wanted to do this as [NASA's APOD](https://apod.nasa.gov/apod/astropix.html) w
 3. [Parts of the Website]()
     1. [Daily images API]()
     2. [Asteroid API]()  
-    4. [Gallery]()
-6. [Issues I had and changes I made]()
-7. [Improvements]()
+    3. [Gallery]()
+4. [Issues I had and changes I made]()
+5. [Improvements]()
 
 
 ### Things used
@@ -66,7 +66,7 @@ Gets all key value pairs in the indexedDB objectStores and displays the informat
 ### Issues I had and changes I made
 
 #### Tainted canvas (blobbed images)
-At the start I wanted the option to be able to download these images offline. However I quickly learnt that due to the canvas being tainted (allow header origin not set) from another origin that I could not do this so instead the indexedDB stores the infomration and the image Urls to display on 
+At the start I wanted the option to be able to download these images offline. However I quickly learnt that due to the canvas being tainted because of there being no Access-Control-Allow-Origin header sent from the NASA API configured to permit cross-origin access to the image files. This stopped me from doing this so instead I just used the indexedDB objectstores for storing information and the image Urls to display the gallery with.
 
 #### SVG Image animation
 I originaly used SVG animation for a menu button using anime.js, however I found it wasn't needed and did not fit with the page design and content.

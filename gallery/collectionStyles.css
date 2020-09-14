@@ -36,17 +36,22 @@ ul img:hover{
     transition: 0.3s;
 
 }
+@media (max-height: 480px) {
+  #imageCollection li, #presetCollection li {
+    height: 80vh;
+  }
+  
+}
 @media (max-aspect-ratio: 1/1) {
   #imageCollection li, #presetCollection li {
     height: 30vh;
   }
-}
-
-@media (max-height: 480px) {
-  li {
-    height: 80vh;
+  .placeholderLine{
+    display:none !important;
   }
 }
+
+
 
 .modal{
     display: none;
