@@ -204,9 +204,9 @@ deleteImage.addEventListener('click', (e) => {
 
 fetchRequest(nasaPhotoDate, true);
 
-function callback(){
+function finishedIndexedDB(){
     let saved = document.querySelector('#saveImage');
     saved.addEventListener('click', () => {
         store(); 
     });
-}
+};

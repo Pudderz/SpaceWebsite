@@ -87,3 +87,4 @@ modalFullscreen.addEventListener('click', e => {
 
     }
 });
+
