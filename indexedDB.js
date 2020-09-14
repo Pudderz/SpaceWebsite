@@ -454,6 +454,6 @@ openRequest.onsuccess = () => {
         });
     
     }
-    callback();
+    finishedIndexedDB();
 };
 

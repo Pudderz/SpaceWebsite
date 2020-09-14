@@ -10,71 +10,61 @@ body{
 }
 
 #imageCollection ul ,#presetCollection{
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding-left:0px;
-    overflow: hidden;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding-left:0px;
+  overflow: hidden;
+}
   
 #imageCollection li, #presetCollection li {
-    height: 40vh;
-    flex-grow: 1;
-    display: flex;
-  }
+  height: 40vh;
+  flex-grow: 1;
+  display: flex;
+}
   
-  img {
-    max-height: 100%;
-    min-width: 100%;
-    object-fit: cover;
-    vertical-align: middle;
-    align-content: center;
-    cursor: pointer;
-  
-  }
+img {
+  max-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  cursor: pointer;
 
-  ul img:hover{
-      opacity: 0.7;
-      transition: 0.3s;
-  }
+}
 
-  @media (max-aspect-ratio: 1/1) {
-    #imageCollection li, #presetCollection li {
-      height: 30vh;
-    }
-  }
-  
-  
-  @media (max-height: 480px) {
-    li {
-      height: 80vh;
-    }
-  }
-  
-  .modal{
-      display: none;
-      position: fixed;
-      width: 100%;
-      height:100%;
-      z-index: 1;
-      left:0;
-      top:0;
-      background-color: rgba(0,0,0,0.9);
-  }
+ul img:hover{
+    opacity: 0.7;
+    transition: 0.3s;
 
-  .modal img{
-      margin: auto;
-      max-height: 70%;
-      object-fit: contain;
-      max-width: 100%;
-      display: inline-block;
-      vertical-align: middle
+}
+@media (max-aspect-ratio: 1/1) {
+  #imageCollection li, #presetCollection li {
+    height: 30vh;
   }
-  @media only screen and (max-width: 700px){
-    .modal {
-      width: 100%;
-    }
+}
+
+@media (max-height: 480px) {
+  li {
+    height: 80vh;
   }
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height:100%;
+    z-index: 1;
+    left:0;
+    top:0;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal img{
+    margin: auto;
+    max-height: 70%;
+    object-fit: contain;
+    max-width: 100%;
+}
 
 .options{
   position: absolute;
@@ -86,8 +76,10 @@ body{
   z-index: 2;
 }
 #modalDiv{
-    color: white;
-    overflow:auto;
+  color: white;
+  overflow:auto;
+  width:100%;
+  height:100%
 }
 
 .close{
@@ -110,10 +102,6 @@ body{
   border: 4px solid rgb(179, 1, 1);
   transform: scale(0.9);
 }
-.remove:hover{
-  background: rgba(128, 29, 29, 0.82);
-  opacity: 0.7;
-}
 
 #tabs{
   display: flex;
@@ -124,17 +112,10 @@ body{
   overflow:visible;
   width:100%;
 }
-/* clears the 'X' from Internet Explorer */
-input[type=search]::-ms-clear {  display: none; width : 0; height: 0; }
-input[type=search]::-ms-reveal {  display: none; width : 0; height: 0; }
 
-/* clears the 'X' from Chrome */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration { display: none; }
 
-#imagePreset, #asteroidCollection, #videoCollection, #videoList p{
+#imagePreset, #asteroidCollection, #videoCollection, #videoList p,#rotateImage, #emptyVideoCollection,
+#asteroidList li div{
   display: none;
 }
 
@@ -250,15 +231,6 @@ nav{
 
 }
 
-#asteroidList li div{
-  display:none;
-}
-
-#modalDiv{
-  width:100%;
-  height:100%
-}
-
 .positionCenter{
   position: absolute;
   top: 50%;
@@ -268,22 +240,6 @@ nav{
   max-height: 100% !important;
 }
 
-
-.stretchFullscreen{
-    max-width: 100vh !important;
-    /* max-height: 100vh !important; */
-    min-width: auto !important;
-} 
-
-@media (max-aspect-ratio: 1/1){
-  .stretchFullscreen{
-    max-width: 100vh !important;
-    max-height: 100vw !important;
-    min-width: auto !important;
-  }  
-}
-
-
 .rotateImage {
   -webkit-transform:rotate( var(--rotation-value));
   -moz-transform: rotate(var(--rotation-value));
@@ -291,15 +247,28 @@ nav{
   -o-transform: rotate(var(--rotation-value));
   transform: rotate(var(--rotation-value));
 }
-
-#rotateImage{
-  display: none;
+.stretchFullscreen{
+    max-width: 100vh !important;
+    /* max-height: 100vh !important; */
+} 
+@media (max-aspect-ratio: 1/1){
+  .stretchFullscreen{
+    max-width: 100vh !important;
+    max-height: 100vw !important;
+  }  
 }
+
+
 
 #search{
   padding: 10px;
 }
+/* clears the 'X' from Internet Explorer */
+input[type=search]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=search]::-ms-reveal {  display: none; width : 0; height: 0; }
 
-#emptyVideoCollection{
-  display: none;
-}
+/* clears the 'X' from Chrome */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; }

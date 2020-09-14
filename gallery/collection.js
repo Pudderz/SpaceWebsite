@@ -1,16 +1,18 @@
 let root = document.documentElement;
-
+let search = document.querySelector('#search');
 let collection = document.querySelector('.collection');
 let presetCollection = document.querySelector('#presetCollection') 
 let imageSearch = document.querySelector('#search-bar');
 let asteroidSearch = document.querySelector('#searchAsteroid')
 let remove = document.querySelector('#remove')
-
+let tabs = document.querySelector('#tabs');
 let imageCollection = document.querySelector('#imageCollection');
 let videoCollection = document.querySelector('#videoCollection');
 let asteroidCollection = document.querySelector('#asteroidCollection');
 let presetImages = document.querySelector('#imagePreset');
-
+let asteroidsLoaded = false;
+let presetLoaded = false;
+let videosLoaded = false;
 let db;
 
 
@@ -57,29 +59,6 @@ let searchImages = () =>{
 
 };
 
-let tabs = document.querySelector('#tabs');
-tabs.addEventListener('click', e=>{
-    let selectedCollection = document.querySelector('.selected')
-    selectedCollection.classList.remove('selected');
-    e.target.classList.add('selected');
-    presetImages.style.display = "none";
-    imageCollection.style.display = "none";
-    asteroidCollection.style.display = "none";
-    videoCollection.style.display = "none";
-    switch(e.target.id){
-        case "imageCollectionTitle":
-            imageCollection.style.display = "block";
-            break;
-        case "asteroidCollectionTitle":
-            asteroidCollection.style.display = "block";
-            break;
-        case "presetCollectionTitle":
-            presetImages.style.display = "block";
-            break;
-        case "videoCollectionTitle":
-            videoCollection.style.display = "block";
-    }
-});
 
 let removeObjectStoreItem = (itemName, itemLocation, storeName) => {
     let transaction = db.transaction(storeName,'readwrite');
@@ -249,24 +228,66 @@ function displayVideo(content){
 //Get Collections
 
 //Runs as soon as indexedDb has finished setting up
-function callback(){
+function finishedIndexedDB(){
     getCollection('imageSaved', (result)=>{
         createImages(result, collection);
         searchImages();
     });
-    getCollection('videoSaved', (result)=>{
-        console.log('videos loaded');
-        displayVideo(result);
+
+    tabs.addEventListener('click', e=>{
+    let selectedCollection = document.querySelector('.selected')
+    selectedCollection.classList.remove('selected');
+    e.target.classList.add('selected');
+    presetImages.style.display = "none";
+    imageCollection.style.display = "none";
+    asteroidCollection.style.display = "none";
+    videoCollection.style.display = "none";
+    switch(e.target.id){
+        case "imageCollectionTitle":
+            imageCollection.style.display = "block";
+            search.style.display = "block";
+            break;
+        case "asteroidCollectionTitle":
+            asteroidCollection.style.display = "block";
+            search.style.display = "none";
+            //loads object store if not loaded already
+            if(!asteroidsLoaded){
+                getCollection('asteroidsSaved', (result)=>{
+                    console.log('asteroids loaded');
+                    displayAsteroids(result);
+                })
+                asteroidsLoaded = true;
+            }
+            
+            break;
+        case "presetCollectionTitle":
+            presetImages.style.display = "block";
+            search.style.display = "block";
+            if(!presetLoaded){
+                getCollection('presetImages', (result)=>{
+                    createImages(result, presetCollection);
+                    searchImages();
+                });
+               presetLoaded = true;
+            }
+            break;
+        case "videoCollectionTitle":
+            videoCollection.style.display = "block";
+            search.style.display = "none";
+            if(!videosLoaded){
+                getCollection('videoSaved', (result)=>{
+                console.log('videos loaded');
+                displayVideo(result);
+            });
+                videosLoaded = true;
+            }
+            
+        }
     });
-    getCollection('asteroidsSaved', (result)=>{
-        console.log('asteroids loaded');
-        displayAsteroids(result);
-    })
-    //presetImages
-    getCollection('presetImages', (result)=>{
-        createImages(result, presetCollection);
-    });
-};
+
+}
+
+
 
 videoCollection.addEventListener('click', e=>{
     if(e.target.classList.contains('deleteVideo')){
