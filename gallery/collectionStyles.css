@@ -248,15 +248,14 @@ nav{
   transform: rotate(var(--rotation-value));
 }
 .stretchFullscreen{
-    max-width: 100vh !important;
-    /* max-height: 100vh !important; */
+  max-width: 100vh !important;
+  min-width: auto !important;
 } 
 @media (max-aspect-ratio: 1/1){
   .stretchFullscreen{
-    max-width: 100vh !important;
     max-height: 100vw !important;
-  }  
-}
+  }
+}  
 
 
 
