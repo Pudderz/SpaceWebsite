@@ -103,7 +103,7 @@ let displayAsteroids = data =>{
     ul.appendChild(fragment);
 };
 
-function callback(){
+function finishedIndexedDB(){
     var saveAsteroid = element => {
         let date = document.querySelector('#photoDate')
         let transaction = db.transaction(`asteroidsSaved`,'readwrite');
