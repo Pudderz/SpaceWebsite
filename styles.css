@@ -4,32 +4,13 @@ body{
     font-family: 'Montserrat';
 }
 
-
-#layout{
-    position: flex;
-    width:100%;
-    height:100%;
-    grid-template-columns: 100%;
-}
-
 .showing{
     display: block !important;
 }
 
 
-#tabs button{
-    width:100%;
-    color: white;
-    background-color: rgba(30, 30, 30, 0.945);
-    border-style: none;
-    padding:8px;
-    margin: auto;
-    height: 50%;
-}
-
-
-
 #tabs a, #photoDetails a{
+    font-size: 1em;
     border-style: outset;
     border-radius: 5%;
     box-sizing: border-box;
@@ -41,7 +22,8 @@ body{
     text-align:center;
     text-decoration: none;
     border-color: white;
-    margin:2px;
+    margin:5px;
+    height: fit-content;
 }
 
 .modal{
@@ -128,8 +110,9 @@ body{
     display: flex;
     right: 0%;
     left:0%;
-    justify-content: stretch;
+    
     z-index: 2;
+    font-size: 1em;
 }
 
 :root{
