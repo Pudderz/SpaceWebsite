@@ -1,12 +1,14 @@
+//If dbInputdata is true installs preset images
 let dbInputData = false; 
 let openRequest = indexedDB.open('storage', 1);
-openRequest.onupgradeneeded = (e)=> {
+openRequest.onupgradeneeded = () => {
     console.log('upgrade db needed');
     db = openRequest.result;
     db.createObjectStore('imageSaved');
     db.createObjectStore('asteroidsSaved');
     db.createObjectStore('videoSaved');
     db.createObjectStore('presetImages');
+    
     dbInputData = true;
 }
 openRequest.onerror = () => {
@@ -17,7 +19,8 @@ openRequest.onsuccess = () => {
     db = openRequest.result;
     console.log('db running');
     console.log(dbInputData);
-    //Installs Preset Images if needed to make it easier to play around with the gallery with having to waste time picking images
+    //Installs Preset Images if needed to make it easier to play 
+    // with the gallery while not having to waste time picking images
     if(dbInputData){
         console.log('updating')
         const presetImages = [
