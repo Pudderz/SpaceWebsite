@@ -68,10 +68,10 @@ let searchImages = () =>{
 };
 
 
-let removeObjectStoreItem = (itemName, itemLocation, storeName) => {
-    let transaction = db.transaction(storeName,'readwrite');
-    let items = transaction.objectStore(storeName);
-    let request = items.delete(itemName);
+const removeObjectStoreItem = (itemName, itemLocation, storeName) => {
+    const transaction = db.transaction(storeName,'readwrite');
+    const items = transaction.objectStore(storeName);
+    const request = items.delete(itemName);
     request.onsuccess = () =>{
         console.log('Successfully removed');
         itemLocation.remove();
@@ -82,20 +82,31 @@ let removeObjectStoreItem = (itemName, itemLocation, storeName) => {
     }
 }
 
-let getItem = (storeName, itemName, callback) =>{
-    let transaction = db.transaction(storeName, 'readonly');
-        let objectStore = transaction.objectStore(storeName);
-        let request = objectStore.get(itemName);
-        request.onsuccess = () => {
-            callback(request.result);
-        }
-        request.onerror = () =>{
-            console.log('item could not be viewed', request.error);
-        }
+const getItem = (storeName, itemName, callback) =>{
+    const transaction = db.transaction(storeName, 'readonly');
+    const objectStore = transaction.objectStore(storeName);
+    const request = objectStore.get(itemName);
+    request.onsuccess = () => {
+        callback(request.result);
+    }
+    request.onerror = () =>{
+        console.log('item could not be viewed', request.error);
+    }
+}
+
+let ol = document.querySelector('ol');
+//Asteroid Gallery section
+const checkIfEmpty=()=>{
+    console.log(ol.childNodes.length)
+    let emptyAsteroid = document.querySelector('#emptyAsteroidCollection');
+    if(ol.childNodes.length===0){
+        emptyAsteroid.style.display = "block";
+    }else{
+        emptyAsteroid.style.display = "none";
+    }
 }
 
 
-//Asteroid Gallery section
 
 let searchAsteroids = () =>{
     let asteroidList = document.querySelectorAll('.asteroidSearchResult');
@@ -110,8 +121,9 @@ let searchAsteroids = () =>{
     });
 };
 
-let ol = document.querySelector('ol');
+
 let displayAsteroids = data =>{
+        
         data.forEach( e => {
             let content = document.createElement('li');
             content.setAttribute('id', e.title);
@@ -156,11 +168,13 @@ let displayAsteroids = data =>{
         });
 
     searchAsteroids();
+    checkIfEmpty(data);
 };
 
 ol.addEventListener('click', e  => {
     if(e.target.classList.contains('removeAsteroid')){
         removeObjectStoreItem(e.target.parentElement.childNodes[0].textContent, e.target.parentElement, 'asteroidsSaved');
+        
     } else if(e.target.classList.contains('details')){
         e.target.parentElement.childNodes[3].classList.toggle('showing')
         if(e.target.parentElement.childNodes[3].classList.contains('showing')){

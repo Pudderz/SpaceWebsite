@@ -84,11 +84,10 @@ body{
     margin: auto;
 }
 
-.details, #details{
-    overflow:visible;
-    width:100%;
-}
 
+.details{
+  padding: 5px;
+}
 .options{
     position: absolute;
     top:0%;

@@ -118,14 +118,14 @@ function finishedIndexedDB(){
         const items = transaction.objectStore(`asteroidsSaved`);
         const item = {
             title: element.childNodes[0].textContent,
-            id:element.childNodes[1].attributes['id'].value,
+            id:element.childNodes[4].attributes['id'].value,
             date: element.className,
-            diameterMin: element.childNodes[1].childNodes[3].attributes[0].value,
-            diameterMax: element.childNodes[1].childNodes[3].attributes[1].value,
-            absolute_magnitude_h:element.childNodes[1].childNodes[0].attributes[0].nodeValue,
-            close_approach_data:element.childNodes[1].childNodes[1].attributes[0].value,
-            speed:element.childNodes[1].childNodes[2].attributes[0].value,
-            url:element.childNodes[1].childNodes[4].href,
+            diameterMin: element.childNodes[4].childNodes[3].attributes[0].value,
+            diameterMax: element.childNodes[4].childNodes[3].attributes[1].value,
+            absolute_magnitude_h:element.childNodes[4].childNodes[0].attributes[0].nodeValue,
+            close_approach_data:element.childNodes[4].childNodes[1].attributes[0].value,
+            speed:element.childNodes[4].childNodes[2].attributes[0].value,
+            url:element.childNodes[4].childNodes[4].href,
         }
         const request = items.add(item, element.childNodes[0].textContent);
 

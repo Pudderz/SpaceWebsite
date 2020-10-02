@@ -115,8 +115,8 @@ ul img:hover{
   background-color: rgba(30, 30, 30, 0.945);
 }
 #details{
-  overflow:visible;
-  width:100%;
+  
+  padding: 10px;
 }
 
 
@@ -132,10 +132,11 @@ ul img:hover{
   border-radius: 19px;
   box-shadow: 0px 1px 2px black;
   padding-bottom: 10px;
+  margin-top: 10px;
 
 }
 
-#tabs  button, #tabs a{
+#tabs  button, #tabs a, #emptyAsteroidCollection a{
   cursor:pointer;    
   color:white;
   background-color: rgba(30, 30, 30, 0.945);
@@ -149,7 +150,13 @@ ul img:hover{
   font-family: arial, sans-serif;
   
 }
-
+#emptyAsteroidCollection{
+  display: none;
+  padding: 20px;
+}
+#emptyAsteroidCollection a{
+  width: fit-content;
+}
 #tabs a{
   margin: auto;
 }
