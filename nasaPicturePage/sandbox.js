@@ -19,11 +19,12 @@ let image = document.querySelector('#image');
 let previousDay = document.querySelector('#previousDay');
 let nextDay = document.querySelector('#nextDay');
 let saved = document.querySelector('#saveImage');
+const photoDate = document.querySelector('#nasaPhotoDate');
 
 //Get current day to set date.max and start fetching current date image
 let nasaPhotoDate = (() =>{
     let date = new Date().toISOString().split('T')[0]
-    let photoDate = document.querySelector('#nasaPhotoDate');
+    
     let inputDate = document.getElementById('inputDate');
     photoDate.textContent = `Nasa's Picture of ${date}`;
     inputDate.setAttribute('max', date );
@@ -70,7 +71,7 @@ let fetchRequest = async (date, hdBool)=>{
         type ="video"
     } 
     checkStore(type); 
-    
+    photoDate.textContent = `Nasa's Picture of ${date}`
 }
 
 

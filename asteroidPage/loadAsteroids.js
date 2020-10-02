@@ -1,7 +1,7 @@
 let api = "2A1UmguNwvSeRTvmHlZ5rXbsFErb3EH8Nu3YPJI2";
 let info;
 let db;
-let ul = document.querySelector('ul');
+let ul = document.querySelector('div#list');
 let startDate = '';
 let endDate = '';
 let information = document.getElementById('list');
@@ -30,13 +30,18 @@ let displayAsteroids = data =>{
     observer.observe(loading);
     
     for(date in data){
-        
+        let title = document.createElement('div');
+        let dateContent = document.createElement('div');
+        dateContent.classList.add('content')
         let newDate = document.createElement('h3');
         newDate.textContent = date;
-        fragment.appendChild(newDate);
+        title.appendChild(newDate);
         let asteroidNumber = document.createElement('h4');
         asteroidNumber.textContent = `${data[date].length} Asteroids Passing Today`;
-        fragment.appendChild(asteroidNumber);
+        title.appendChild(asteroidNumber);
+        title.classList.add('dateHeader');
+        let list = document.createElement('ul');
+        dateContent.appendChild(title);
         
         let array = data[date];
 
@@ -92,17 +97,21 @@ let displayAsteroids = data =>{
             let moreDetails = detailInput.cloneNode(true);
             moreDetails.setAttribute('id', e.id);
 
-            content.appendChild(details);
+            
             content.appendChild(moreDetails);
             content.appendChild(saveItem);
             content.appendChild(removeItem);
-            fragment.appendChild(content);
+            content.appendChild(details);
+            list.appendChild(content);
+            dateContent.appendChild(list)
         });
-
+        fragment.appendChild(dateContent);
     }
     ul.appendChild(fragment);
 };
 
+
+//Runs when IndexedDB has setup
 function finishedIndexedDB(){
     var saveAsteroid = element => {
         const transaction = db.transaction(`asteroidsSaved`,'readwrite');
@@ -144,7 +153,7 @@ function finishedIndexedDB(){
     information.addEventListener('click', element => {
         if(element.target.className =="details"){
             console.log('more details')
-            let div = element.target.parentElement.childNodes[1];
+            let div = element.target.parentElement.childNodes[4];
             let style = div.style.display;
             if(style == "" || style == "none"){
                 div.style.display = "block";

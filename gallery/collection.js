@@ -1,5 +1,5 @@
 let root = document.documentElement;
-let search = document.querySelector('#search');
+let search = document.querySelector('#imageSearch');
 let collection = document.querySelector('.collection');
 let presetCollection = document.querySelector('#presetCollection') 
 let imageSearch = document.querySelector('#search-bar');
@@ -118,12 +118,12 @@ let displayAsteroids = data =>{
             content.classList.add('asteroidSearchResult');
             let detailInput = document.createElement('button');
             detailInput.classList.add("details");
-            detailInput.textContent = "more details";
+            detailInput.textContent = "More details";
             detailInput.id = e.id;
 
             let remove = document.createElement('button');
             remove.classList.add('removeAsteroid');
-            remove.textContent = "remove from collection";
+            remove.textContent = "Remove from collection";
 
             let details = document.createElement('div');
             details.classList.add("information");
@@ -146,13 +146,12 @@ let displayAsteroids = data =>{
             let speed = document.createElement('p');
             speed.textContent = `Speed: ${e.speed}mph`;
             speed.classList.add('speed');
-
+            content.appendChild(detailInput);
+            content.appendChild(remove);
             details.appendChild(speed)
             details.appendChild(diameter);
             details.appendChild(url);
             content.appendChild(details);
-            content.appendChild(detailInput);
-            content.appendChild(remove);
             ol.appendChild(content);
         });
 
@@ -163,12 +162,12 @@ ol.addEventListener('click', e  => {
     if(e.target.classList.contains('removeAsteroid')){
         removeObjectStoreItem(e.target.parentElement.childNodes[0].textContent, e.target.parentElement, 'asteroidsSaved');
     } else if(e.target.classList.contains('details')){
-        e.target.parentElement.childNodes[1].classList.toggle('showing')
-        if(e.target.parentElement.childNodes[1].classList.contains('showing')){
-            e.target.parentElement.childNodes[1].style.display="block";
+        e.target.parentElement.childNodes[3].classList.toggle('showing')
+        if(e.target.parentElement.childNodes[3].classList.contains('showing')){
+            e.target.parentElement.childNodes[3].style.display="block";
             e.target.textContent = "Hide Details"
         } else{
-            e.target.parentElement.childNodes[1].style.display="none";
+            e.target.parentElement.childNodes[3].style.display="none";
             e.target.textContent = "Show Details";
         }
         
@@ -192,7 +191,7 @@ function displayVideo(content){
         let emptyVideo = document.querySelector('#emptyVideoCollection');
         emptyVideo.style.display = "block";
     }
-    content.forEach((e, index)=>{
+    content.forEach(e=>{
         let {title: videoTitle, date: videoDate, 
             explanation: videoDetails, url} = e; 
         let iframeTitle = document.createElement('h4');

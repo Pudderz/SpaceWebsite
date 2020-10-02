@@ -10,23 +10,21 @@
     <link rel="stylesheet" href="nasaPicturePage/indexStyles.css">
 </head>
 <body>
-  
+    <nav id = "tabs">
+        <a href="./asteroidPage/asteroidList.html">Daily Asteroids</a>
+        <button id="previousDay">Previous Day</button>
+        <div id = "date"><label for="inputDate">
+            Search new date: 
+            <input id="inputDate" type="date" min="1995-06-16">
+            </label></div>
+        <button id="nextDay">Next Day</button>
+        <a href="./gallery/usersCollection.html">Gallery</a>
+    </nav>
+    
     <div class="NASAAPOD">
         <div class ="title">
-        <h3 id="nasaPhotoDate">Nasa's Picture of (Date:)</h3> 
-        <label id="time"for="inputDate">
-        Search a new date: 
-        <input id="inputDate" type="date" min="1995-06-16">
-        </label>
-        
-        
-         <nav id = "tabs">
-            <a href="gallery/usersCollection.html">Image Gallery</a>
-            <a href="asteroidPage/asteroidList.html">Daily Asteroids</a>
-            
-        </nav>   
+        <h2 id="nasaPhotoDate">Nasa's Picture of The Day</h2> 
         </div>
-         
         <div class="daily-image">
             <img  id ="image" src="" alt="">  
             <div class="iframeDiv">
@@ -35,23 +33,21 @@
             
          </div>
         <div id="group">
-            <h4 id="header"></h4>
+            <h3 id="header"></h3>
             
             <div id="choice">
                 <button id="changeQuality">HD version</button>
                 <button id="saveImage"> Save to Gallery</button>
-                <button id="deleteImage">Remove from my Gallery</button>
+                <button id="deleteImage">Remove from Gallery</button>
                 <button id="displayDetails">Photo Details</button>
-            </div>
-            <div id="newDateButtons">
-                <button id="previousDay">Previous Day</button>
-                <button id="nextDay">Next Day</button> 
             </div>
             <div id="photoDetails">
                 <h4>Photo Details:</h4>
                 <p id ="details"></p>    
-                
+                <div class="linkDiv">
                     <a id="nasaLink" href="https://apod.nasa.gov/apod/astropix.html" target="_blank" cursor='pointer' rel="noopener">Link to NASA's APOD website</a>
+                </div>
+                
 
             </div>
         </div> 
@@ -66,7 +62,7 @@
             <button id="rotateImage">Rotate</button> 
         </div>
         <img id="modalImg" class="rotateImage" src="" alt="placeholder">
-        <div id ="details">
+        <div class ="details">
             <h2 id="imageTitle"></h2>
             <h3 id ="imageDate"></h3>
             <p id="information">Information...</p>

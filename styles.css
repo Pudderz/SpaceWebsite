@@ -9,22 +9,7 @@ body{
 }
 
 
-#tabs a, #photoDetails a{
-    font-size: 1em;
-    border-style: outset;
-    border-radius: 5%;
-    box-sizing: border-box;
-    cursor:pointer;    
-    color:black;
-    background-color: #EEEEEE;
-    appearance: button;
-    width: 100%;
-    text-align:center;
-    text-decoration: none;
-    border-color: white;
-    margin:5px;
-    height: fit-content;
-}
+
 
 .modal{
     display: none;
@@ -99,7 +84,7 @@ body{
     margin: auto;
 }
 
-#details{
+.details, #details{
     overflow:visible;
     width:100%;
 }
@@ -130,3 +115,9 @@ transform: rotate(var(--rotation-value));
 #rotateImage{
 display: none;
 }
+
+h2{
+  color: white;
+}
+
+
