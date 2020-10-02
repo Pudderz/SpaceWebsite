@@ -119,4 +119,6 @@ h2{
   color: white;
 }
 
-
+label p{
+  margin: 0;
+}

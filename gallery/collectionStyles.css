@@ -330,3 +330,22 @@ input[type="search"]::-webkit-search-results-decoration { display: none; }
     border-radius: 5px;
     outline: black;
 }
+
+.modalButton{
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.39);
+  text-decoration: none;
+  border-style: none;
+  padding: 8px;
+  text-align: center;
+  font-family: arial, sans-serif;
+  margin: 5px;
+  border-radius: 2px;
+  display: block;
+  outline: none;
+}
+.modalButton:active{
+  
+  background-color:rgba(107, 107, 107, 0.39) ;
+}
