@@ -18,7 +18,7 @@ let deleteImage = document.querySelector('#deleteImage');
 let image = document.querySelector('#image');
 let previousDay = document.querySelector('#previousDay');
 let nextDay = document.querySelector('#nextDay');
-
+let saved = document.querySelector('#saveImage');
 
 //Get current day to set date.max and start fetching current date image
 let nasaPhotoDate = (() =>{
@@ -41,8 +41,8 @@ let fetchRequest = async (date, hdBool)=>{
     let response = await fetch(url, {
     });
     let parsed = await response.json();
-        details.textContent = parsed.explanation;
-        console.log(parsed);
+    details.textContent = parsed.explanation;
+        
     imageTitle = parsed.title;
     imageUrl = parsed.url;
     imageDetails = parsed.explanation;
@@ -68,7 +68,8 @@ let fetchRequest = async (date, hdBool)=>{
         iframe.title = parsed.title;
         imageHdUrl = parsed.url;
         type ="video"
-    }  
+    } 
+    checkStore(type); 
     
 }
 
@@ -116,7 +117,6 @@ function changeNasaLink(date){
     let year = linkDate.getFullYear();
     year = year.toString().match(regex);
     console.log('the year is '+year)
-    //https://apod.nasa.gov/apod/ap200912.html
     nasaLink.href = `https://apod.nasa.gov/apod/ap${year}${month}${day}.html`;
 }
 
@@ -163,9 +163,28 @@ displayDetails.addEventListener('click', e =>{
     }
 })
 
+const checkStore = (type) =>{
+    let objectStore = (type == "image")? "imageSaved": "videoSaved";
+    const transaction = db.transaction(`${objectStore}`,'readwrite');
+    const items = transaction.objectStore(`${objectStore}`);
+    let request = items.get(imageTitle);
+    request.onsuccess =()=>{
+        if(request.result === undefined){
+            saved.style.display="block";
+            deleteImage.style.display="none";
+        }else{
+            saved.style.display ="none";
+            deleteImage.style.display="block";
+        }
+    }
+    request.onerror =()=>{
+        saved.style.display="block";
+        deleteImage.style.display="none";
+    }
+}
 
 
-let store = () => {
+const store = () => {
     console.log(`Storing item ${image.alt}`);
     let objectStore = (type =="image")? "imageSaved": "videoSaved";
     if(!(image.alt =='placeholder image') || type =="video"){
@@ -189,6 +208,7 @@ let store = () => {
     }else{
         console.log('No image');
     }
+    checkStore(type);
     
 }
 
@@ -198,14 +218,18 @@ deleteImage.addEventListener('click', (e) => {
     let transaction = db.transaction(objectStore, 'readwrite');
     let items = transaction.objectStore(objectStore);
     let request = items.delete(imageTitle);
-    request.onsuccess = () => console.log(`${type} removed from your collection`);
+    request.onsuccess = () => {
+        console.log(`${type} removed from your collection`);
+        checkStore(type)
+    }
     request.onerror = () => console.log(`${type} could not be removed from the store ${request.error}`);
+
 })
 
 fetchRequest(nasaPhotoDate, true);
 
 function finishedIndexedDB(){
-    let saved = document.querySelector('#saveImage');
+   
     saved.addEventListener('click', () => {
         store(); 
     });
