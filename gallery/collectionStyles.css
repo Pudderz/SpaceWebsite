@@ -112,6 +112,7 @@ ul img:hover{
   display: flex;
   justify-content: space-around;
   border-bottom: 1px solid white;
+  background-color: rgba(30, 30, 30, 0.945);
 }
 #details{
   overflow:visible;
@@ -140,9 +141,13 @@ ul img:hover{
   padding:8px;
   text-align: center;
   font-size:1vw;
+  font-family: arial, sans-serif;
+  
 }
 
-
+#tabs a{
+  margin: auto;
+}
 .iframeDiv{
   position: relative;
   max-width:100%;
@@ -217,22 +222,22 @@ nav{
 }
 
 #asteroidList{
-  display:flex;
+  display: flex;
   flex-flow: wrap;
   list-style: none;
-  padding-left:0px;
-  margin:0;
+  padding: 20px;
+  gap: 20px;
   justify-content: center;
 }
 
 #asteroidList li{
   background-color: #1f4068;
   text-align: center;
-  margin: 1%;
+  margin: 0px;
   list-style: none;
-  list-style-position:inside;
-  min-width: 200px;
-  max-width: 100%;
+  flex: 1;
+  min-width: 300px;
+  height: fit-content;
 
 }
 

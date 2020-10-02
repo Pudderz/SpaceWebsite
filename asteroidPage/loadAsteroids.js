@@ -54,14 +54,14 @@ let displayAsteroids = data =>{
             
             
             let info = document.createElement('p');
-            info.textContent = e.absolute_magnitude_h;
+            info.textContent = `Absolute magnitude(h):${e.absolute_magnitude_h}`;
             info.setAttribute('data-size',e.absolute_magnitude_h);
             info.classList.add('size');
             details.appendChild(info);
 
             let approachDate = e.close_approach_data[0].close_approach_date_full;
             let closeAppoachDate = document.createElement('p');
-            closeAppoachDate.textContent = approachDate;
+            closeAppoachDate.textContent = `Close approach date: ${approachDate}`;
             closeAppoachDate.setAttribute('data-type', approachDate);
             closeAppoachDate.classList.add('approachDate');
             details.appendChild(closeAppoachDate)
@@ -105,10 +105,9 @@ let displayAsteroids = data =>{
 
 function finishedIndexedDB(){
     var saveAsteroid = element => {
-        let date = document.querySelector('#photoDate')
-        let transaction = db.transaction(`asteroidsSaved`,'readwrite');
-        let items = transaction.objectStore(`asteroidsSaved`);
-        let item = {
+        const transaction = db.transaction(`asteroidsSaved`,'readwrite');
+        const items = transaction.objectStore(`asteroidsSaved`);
+        const item = {
             title: element.childNodes[0].textContent,
             id:element.childNodes[1].attributes['id'].value,
             date: element.className,
@@ -119,7 +118,7 @@ function finishedIndexedDB(){
             speed:element.childNodes[1].childNodes[2].attributes[0].value,
             url:element.childNodes[1].childNodes[4].href,
         }
-        let request = items.add(item, element.childNodes[0].textContent);
+        const request = items.add(item, element.childNodes[0].textContent);
 
         request.onsuccess = () => {
             console.log('item added to the store', request.result)
@@ -130,9 +129,9 @@ function finishedIndexedDB(){
     };
     var removeAsteroid = key =>{
         console.log(key);
-        let transaction = db.transaction(`asteroidsSaved`, 'readwrite');
-        let items = transaction.objectStore('asteroidsSaved');
-        let request = items.delete(key);
+        const transaction = db.transaction(`asteroidsSaved`, 'readwrite');
+        const items = transaction.objectStore('asteroidsSaved');
+        const request = items.delete(key);
         request.onsuccess = () =>{
             console.log('Item has been deleted from your collection');
         }
@@ -174,7 +173,7 @@ function getDate(i){
     endDate = endingDate.toISOString().split('T')[0];
 }
 
-let fetchAsteroids = async(start,end) =>{
+const fetchAsteroids = async(start,end) =>{
     let url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start}&end_date=${end}&api_key=${api}`;
     fetch(url)
         .then(response => response.json())
