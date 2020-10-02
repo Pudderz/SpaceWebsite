@@ -14,7 +14,7 @@
         <a href="./asteroidPage/asteroidList.html">Daily Asteroids</a>
         <button id="previousDay">Previous Day</button>
         <div id = "date"><label for="inputDate">
-            Search new date: 
+            <p class="hidden">Search New Date:</p>
             <input id="inputDate" type="date" min="1995-06-16">
             </label></div>
         <button id="nextDay">Next Day</button>
@@ -56,10 +56,9 @@
     <div id="modalDiv" class="modal">
         <div class ="options">
             <button class="close" >&times;</button>
-            <button id="delete">Delete image</button>
-            <button id="qualityChange">HD version</button>
-            <button id="fullscreen">Fullscreen</button> 
-            <button id="rotateImage">Rotate</button> 
+            <button class="modalButton" id="qualityChange">HD version</button>
+            <button class="modalButton" id="fullscreen">Fullscreen</button> 
+            <button class="modalButton" id="rotateImage">Rotate</button> 
         </div>
         <img id="modalImg" class="rotateImage" src="" alt="placeholder">
         <div class ="details">

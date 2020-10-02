@@ -9,7 +9,7 @@ let modalRotate = document.querySelector('#rotateImage')
 let date = document.querySelector('#imageDate')
 let modalTitle = document.getElementById('imageTitle');
 
-const createModal =  (e) => {
+const createModal =  e => {
     if(!e.target.classList.contains('remove') && e.target.localName == "img"){
         modal.style.display = "block";
             modalImg.src = imageUrl;

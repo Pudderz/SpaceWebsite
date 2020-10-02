@@ -1,4 +1,4 @@
-let root = document.documentElement;
+const root = document.documentElement;
 let search = document.querySelector('#imageSearch');
 let collection = document.querySelector('.collection');
 let presetCollection = document.querySelector('#presetCollection') 
@@ -16,7 +16,7 @@ let videosLoaded = false;
 let db;
 
 
-let createImages = (photoCollection, location) =>{
+const createImages = (photoCollection, location) =>{
     let fragment = document.createDocumentFragment();
     if(photoCollection.length == 0){
         location.innerHTML = '<p>You have no images in your collection</p>';
@@ -42,9 +42,9 @@ let createImages = (photoCollection, location) =>{
 } 
 
 function getCollection(storeName, callback){
-    let transaction = db.transaction(storeName, 'readonly');
-    let objectStore = transaction.objectStore(storeName);
-    let request = objectStore.getAll()
+    const transaction = db.transaction(storeName, 'readonly');
+    const objectStore = transaction.objectStore(storeName);
+    const request = objectStore.getAll()
     request.onsuccess = () => {
         callback(request.result)
     }
@@ -53,8 +53,8 @@ function getCollection(storeName, callback){
     }
 };
 
-let searchImages = () =>{
-    let imageList = document.querySelectorAll('.searchResult');
+const searchImages = () =>{
+    const imageList = document.querySelectorAll('.searchResult');
         imageSearch.addEventListener('keydown', (element) =>{
             imageList.forEach(image => {
                 if(!(image.alt.toLowerCase().includes(element.target.value.toLowerCase()))){
