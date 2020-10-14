@@ -71,7 +71,7 @@ body{
 .close{
     cursor: pointer;
     font-size: 3em;
-    position: absolute;
+    position: fixed;
     background: none;
     color: white;
     z-index: 2;
@@ -92,9 +92,9 @@ body{
     position: absolute;
     top:0%;
     display: flex;
-    right: 0%;
+    right: 10%;
     left:0%;
-    
+    flex-wrap: wrap;
     z-index: 2;
     font-size: 1em;
 }

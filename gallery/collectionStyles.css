@@ -19,6 +19,7 @@ body{
   
 #imageCollection li, #presetCollection li {
   height: 40vh;
+  min-width: 250px;
   flex-grow: 1;
   display: flex;
 }
@@ -75,10 +76,11 @@ ul img:hover{
   position: absolute;
   top:0%;
   display: flex;
-  right: 0%;
+  right: 10%;
   left:0%;
   justify-content: stretch;
   z-index: 2;
+  flex-wrap: wrap;
 }
 #modalDiv{
   color: white;
@@ -90,7 +92,7 @@ ul img:hover{
 .close{
     cursor: pointer;
     font-size: 3em;
-    position: absolute;
+    position: fixed;
     background: none;
     color: white;
     z-index: 2;
